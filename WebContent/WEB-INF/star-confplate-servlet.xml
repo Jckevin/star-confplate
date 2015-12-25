@@ -24,12 +24,12 @@
 		</mvc:interceptor> </mvc:interceptors> -->
 
 	<!-- Resource Mapping -->
-	<mvc:resources mapping="/star-js/**" location="/WEB-INF/star-js/" />
+	<!-- <mvc:resources mapping="/star-js/**" location="/WEB-INF/star-js/" />
 	<mvc:resources mapping="/star-css/**" location="/WEB-INF/star-css/" />
 	<mvc:resources mapping="/star-img/**" location="/WEB-INF/star-img/" />
 	<mvc:resources mapping="/star-font/**" location="/WEB-INF/star-font/" />
 	<mvc:resources mapping="/star-data/**" location="/WEB-INF/star-data/" />
-	<mvc:resources mapping="/star-view/**" location="/WEB-INF/star-view/" />
+	<mvc:resources mapping="/star-view/**" location="/WEB-INF/star-view/" /> -->
 	<!-- Tiles mapping -->
 	<!-- <bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" 
 		> <property name="order" value="0" /> </bean> <bean id="tilesConfigurer" 
@@ -42,7 +42,7 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="order" value="1" />
-		<property name="prefix" value="/WEB-INF/star-view/" />
+		<property name="prefix" value="/star-view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 

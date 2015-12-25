@@ -1,24 +1,16 @@
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="configure plateform">
-<meta name="author" content="Lings">
-
-<title>Bootstrap</title>
-<link rel="shortcut icon" href="<c:url value='/star-img/star1.png'/>" />
-<link rel="stylesheet" href="<c:url value='/star-css/bootstrap.min.css'/>" />
-<link rel="stylesheet" href="<c:url value='/star-css/login.css'/>" />
-<link rel="stylesheet" href="<c:url value='/star-css/magic/magic.css'/>" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/login.css">
+<link rel="stylesheet" href="assets/magic/magic.css">
 </head>
-
 <body>
 	<div class="container">
 		<div class="text-center">
-			<img src="<c:url value='/star-img/logo.png'/>" alt="Metis Logo">
+			<img src="assets/img/logo.png" alt="Metis Logo">
 		</div>
 		<div class="tab-content">
 			<div id="login" class="tab-pane active">
@@ -35,7 +27,7 @@
 				<form action="index.html" class="form-signin">
 					<p class="muted text-center">Enter your valid e-mail</p>
 					<input type="email" placeholder="mail@domain.com"
-						required="required" class="input-block-level"> <br /> <br>
+						required="required" class="input-block-level"> <br> <br>
 					<button class="btn btn-large btn-danger btn-block" type="submit">Recover
 						Password</button>
 				</form>
@@ -64,20 +56,25 @@
 	</div>
 	<!-- /container -->
 
-	<script type="text/javascript"
-		src="<c:url value='/star-js/jquery-1.11.3.min.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script>
-    $('.inline li > a').click(function() {
-      var activeForm = $(this).attr('href') + ' > form';
-      //console.log(activeForm);
-      $(activeForm).addClass('magictime swap');
-      //set timer to 1 seconds, after that, unload the magic animation
-      setTimeout(function() {
-        $(activeForm).removeClass('magictime swap');
-      }, 1000);
-    });
-  </script>
+	window.jQuery
+		|| document
+			.write('<script src="assets/js/vendor/jquery-1.10.1.min.js"><\/script>')
+    </script>
+	<script type="text/javascript" src="assets/js/vendor/bootstrap.min.js"></script>
+
+	<script>
+	$('.inline li > a').click(function() {
+	    var activeForm = $(this).attr('href') + ' > form';
+	    //console.log(activeForm);
+	    $(activeForm).addClass('magictime swap');
+	    //set timer to 1 seconds, after that, unload the magic animation
+	    setTimeout(function() {
+		$(activeForm).removeClass('magictime swap');
+	    }, 1000);
+	});
+    </script>
 </body>
 </html>
