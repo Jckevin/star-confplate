@@ -16,29 +16,14 @@
 
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-offset-5 col-lg-2 col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
-				<form role="form">
-					<div class="input-group">
-						<span class="input-group-addon">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input type="text"
-							class="form-control" placeholder="twitterhandle">
-					</div>
-					<br>
-					<div class="input-group">
-						<span class="input-group-addon">Password</span> <input type="text"
-							class="form-control">
-					</div>
-				</form>
-			</div>
-		</div>
-		
+	<div class="container-fluid">		
 		<div class="row">
 			<div class="form-signin">
 				<form role="form">
 					<div class="text-center">
-						<img src="<c:url value='/star-img/logo.png'/>" alt="Metis Logo">
+						<img src="<c:url value='/star-img/logo1.png'/>" alt="Metis Logo">
 					</div>
+					<br>
 					<div class="input-group">
 						<span class="input-group-addon">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <input type="text"
 							class="form-control" placeholder="twitterhandle">
@@ -47,6 +32,10 @@
 					<div class="input-group">
 						<span class="input-group-addon">Password</span> <input type="text"
 							class="form-control">
+					</div>
+					<br>
+					<div class="text-center">
+						<button type="button" class="btn btn-info btn-block">Log In登录</button>
 					</div>
 				</form>
 			</div>

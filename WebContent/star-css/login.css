@@ -1,13 +1,13 @@
 body {
 	padding-top: 40px;
 	padding-bottom: 40px;
-	background: url("../star-img/pattern/bedge_grunge.png") repeat #444;
+	background: url("../star-img/pattern/black_paper.png") repeat #444;
 }
 .form-signin {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
-    background: url("../star-img/pattern/black_paper.png") repeat #444;
+    background: url("../star-img/pattern/bedge_grunge.png") repeat #444;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
