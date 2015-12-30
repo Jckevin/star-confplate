@@ -6,7 +6,7 @@ body {
 .form-signin {
     max-width: 330px;
     padding: 15px;
-    margin: 0 auto;
+    margin: 100px auto;
     background: url("../star-img/pattern/bedge_grunge.png") repeat #444;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
