@@ -33,9 +33,12 @@
 					<br>
 					<div class="input-group">
 						<span class="input-group-addon">Password</span> <input
-							id="loginpasswd" type="password" class="form-control">
+							name="loginpasswd" type="password" class="form-control">
 					</div>
 					<br>
+					<div class="text-center">
+						<span class="noticeInfo"></span>
+					</div>
 					<div class="text-center">
 						<button type="submit" id="submitBtn"
 							class="btn btn-info btn-block">Log In登录</button>
@@ -56,31 +59,24 @@
       $("#submitBtn").click(function(e) {
         e.preventDefault();
         var obj = $(this);
-        alert($("input[name='loginname']").val());
-        alert($("input[name='loginpasswd']").val());
+        var name = $("input[name='loginname']").val();
+        var passwd = $("input[name='loginpasswd']").val();
         $.ajax({
           url : "http://localhost:8080/star-confplate/loginCheck/",
           type : "POST",
-          contentType: "application/json",
-          data : {
-            "loginname" : $("[input='loginname']").text(),
-            "loginpasswd" : $("[input='loginpasswd']").text()
-          },
-          dataType : "text",
+          contentType: "application/json;charset=utf-8",
+          data : JSON.stringify({'loginname':name,'loginpasswd':passwd}),
+          dataType : "application/json",
           success : function(result) {
             alert(result);
-            if (result.status == "success") {
+            if (result == "success") {
               obj.parents('form').submit();
             } else {
-              $(".code-img").click();
-              $(".yzmtips").html('验证码错误！');
-              setTimeout(function() {
-                $(".yzmtips").empty();
-              }, 3000);
+              $(".noticeInfo").css("display","block").text("wrong name or wrong password!");
             }
           },
           error:function(msg){
-            $(".yzmtips").html('Error:'+msg);
+            $(".noticeInfo").html('Error:'+msg);
           }
         })
         return false;

@@ -13,7 +13,7 @@ body {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-.test {
-	background-color: #B18904;
-    box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;
+.noticeInfo {
+	display: none;
+	color: #f00;
 }

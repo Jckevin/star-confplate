@@ -1,6 +1,7 @@
 package com.starunion.jee.confplate.controller;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -32,22 +33,34 @@ public class LoginController {
 		logger.debug("post request received.........\n");
 		logger.debug("name:{},pass:{}",loginname,loginpasswd);
 		
-		loginServ.judeLoginUser(loginname, loginpasswd);
+		loginServ.judgeLoginUser(loginname, loginpasswd);
 		
 		return "";
 	}
 	
-	@RequestMapping(value = "/loginCheck", method={RequestMethod.POST})
+	@RequestMapping(value = "/loginCheck1", method={RequestMethod.POST})
 	@ResponseBody
-	public ResponseEntity<String> logincheck(@RequestBody Map map) {
+	public ResponseEntity<String> logincheck1(@SuppressWarnings("rawtypes") @RequestBody Map map) {
 		
-		logger.debug("login check.....{}....",map.get("loginname"));
+		logger.debug("login check.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
 		HttpHeaders responseHeaders = new HttpHeaders();
 		MediaType mediaType = new MediaType("text", "html", Charset.forName("UTF-8"));
 		responseHeaders.setContentType(mediaType);
-		String checkRes = loginServ.judeLoginUser((String)map.get("loginname"), (String)map.get("loginpasswd"));
+		String checkRes = loginServ.judgeLoginUser((String)map.get("loginname"), (String)map.get("loginpasswd"));
 		ResponseEntity<String> responseEntity = new ResponseEntity<String>(checkRes, responseHeaders, 
 				HttpStatus.CREATED);
 		return responseEntity;
 	}
+	
+	@RequestMapping(value = "/loginCheck", method={RequestMethod.POST})
+	@ResponseBody
+	public String logincheck(@SuppressWarnings("rawtypes") @RequestBody Map map) {
+		
+		logger.debug("login check.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
+		Map map1 = new HashMap<String,String>();
+		map1.put("status", "1");
+		
+		return "";
+	}
+	
 }

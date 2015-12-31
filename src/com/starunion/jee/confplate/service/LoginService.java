@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.starunion.jee.confplate.controller.LoginController;
 import com.starunion.jee.confplate.dao.DaoOperatorWeb;
 import com.starunion.jee.confplate.po.OperatorWeb;
 
@@ -15,7 +14,7 @@ public class LoginService {
 	
 	@Autowired
 	DaoOperatorWeb daoOperatorWeb;
-	public String judeLoginUser(String name,String passwd){
+	public String judgeLoginUser(String name,String passwd){
 		OperatorWeb user = daoOperatorWeb.findByNumber(name);
 		if(user == null){
 			logger.debug("please input the right user NAME!");
