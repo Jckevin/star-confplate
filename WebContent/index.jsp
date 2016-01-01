@@ -66,17 +66,16 @@
           type : "POST",
           contentType: "application/json;charset=utf-8",
           data : JSON.stringify({'loginname':name,'loginpasswd':passwd}),
-          dataType : "application/json",
-          success : function(result) {
-            alert(result);
+          dataType : "json",
+          success : function(result,status,req) {
             if (result == "success") {
               obj.parents('form').submit();
             } else {
               $(".noticeInfo").css("display","block").text("wrong name or wrong password!");
             }
           },
-          error:function(msg){
-            $(".noticeInfo").html('Error:'+msg);
+          error:function(req,status,reason){
+            $(".noticeInfo").css("display","block").text('Error:'+reason);
           }
         })
         return false;

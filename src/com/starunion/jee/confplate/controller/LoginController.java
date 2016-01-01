@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.starunion.jee.confplate.service.LoginService;
 
 
@@ -42,7 +43,7 @@ public class LoginController {
 	@ResponseBody
 	public ResponseEntity<String> logincheck1(@SuppressWarnings("rawtypes") @RequestBody Map map) {
 		
-		logger.debug("login check.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
+		logger.debug("login check1.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
 		HttpHeaders responseHeaders = new HttpHeaders();
 		MediaType mediaType = new MediaType("text", "html", Charset.forName("UTF-8"));
 		responseHeaders.setContentType(mediaType);
@@ -55,12 +56,15 @@ public class LoginController {
 	@RequestMapping(value = "/loginCheck", method={RequestMethod.POST})
 	@ResponseBody
 	public String logincheck(@SuppressWarnings("rawtypes") @RequestBody Map map) {
-		
+		String checkRes = null;
 		logger.debug("login check.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
-		Map map1 = new HashMap<String,String>();
-		map1.put("status", "1");
-		
-		return "";
+		try {
+			checkRes = loginServ.judgeLoginUserJson((String)map.get("loginname"), (String)map.get("loginpasswd"));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return checkRes;
 	}
 	
 }

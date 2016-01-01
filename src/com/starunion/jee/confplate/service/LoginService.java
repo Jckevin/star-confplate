@@ -1,10 +1,19 @@
 package com.starunion.jee.confplate.service;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 import com.starunion.jee.confplate.dao.DaoOperatorWeb;
 import com.starunion.jee.confplate.po.OperatorWeb;
 
@@ -14,6 +23,33 @@ public class LoginService {
 	
 	@Autowired
 	DaoOperatorWeb daoOperatorWeb;
+	public String judgeLoginUserJson(String name,String passwd) throws JsonProcessingException{
+		OperatorWeb user = daoOperatorWeb.findByNumber(name);
+		ObjectMapper mapper = new ObjectMapper();
+		Map map = new HashMap<String,String>();
+		String result = "";
+		if(user == null){
+			logger.debug("please input the right user NAME!");
+			map.put("statusCode", "1");
+			map.put("reasonCode", "errUser");
+			result = mapper.writeValueAsString(map);
+		}else{
+			String resPass = user.getPassword();
+			if(resPass.equals(passwd)){
+				logger.debug("sucessful login start direc to the home page.");
+				map.put("statusCode", "0");
+				map.put("reasonCode", "loginSuccess");
+				result = mapper.writeValueAsString(map);
+			}else{
+				logger.debug("please input the right use PASSWORD!");
+				map.put("statusCode", "2");
+				map.put("reasonCode", "errPasswd");
+				result = mapper.writeValueAsString(map);
+			}
+		}
+		return result;
+	}
+	
 	public String judgeLoginUser(String name,String passwd){
 		OperatorWeb user = daoOperatorWeb.findByNumber(name);
 		if(user == null){
