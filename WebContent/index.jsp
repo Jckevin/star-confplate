@@ -1,7 +1,17 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="lang" value="zh_CN" />
+<c:if test="${!(empty sessionScope.langSet)}">
+	<c:set var="lang" value="${sessionScope.langSet}" />
+</c:if>
+<fmt:setLocale value="${lang}" />
+<fmt:setBundle
+	basename="com.starunion.jee.confplate.resi18n.starResBundle"
+	var="langRes" scope="session" />
+	
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN">	
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,30 +19,37 @@
 <meta name="description" content="configure plateform">
 <meta name="author" content="Lings">
 
-<title>Bootstrap</title>
+<title><fmt:message key="companyname" bundle="${langRes}" /></title>
 <link rel="shortcut icon" href="<c:url value='/star-img/star1.png'/>" />
 <link rel="stylesheet"
 	href="<c:url value='/star-css/bootstrap.min.css'/>" />
 <link rel="stylesheet" href="<c:url value='/star-css/login.css'/>" />
 
 </head>
+
 <body>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="form-signin">
 				<form action="login" method="POST" role="form">
 					<div class="text-center">
+						<a id="lang_zh"><fmt:message key="lang.zh" bundle="${langRes}" /></a>
+						<a id="lang_en"><fmt:message key="lang.en" bundle="${langRes}" /></a>
+					</div>
+					<br>
+					<div class="text-center">
 						<img src="<c:url value='/star-img/logo1.png'/>" alt="StarSky Logo">
 					</div>
 					<br>
 					<div class="input-group">
-						<span class="input-group-addon">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<input name="loginname" type="text" class="form-control"
-							placeholder="twitterhandle">
+						<span class="input-group-addon"><fmt:message
+								key="loginname" bundle="${langRes}" /></span> <input name="loginname"
+							type="text" class="form-control" placeholder="twitterhandle">
 					</div>
 					<br>
 					<div class="input-group">
-						<span class="input-group-addon">Password</span> <input
+						<span class="input-group-addon"><fmt:message
+								key="loginpass" bundle="${langRes}" /></span> <input
 							name="loginpasswd" type="password" class="form-control">
 					</div>
 					<br>
@@ -41,7 +58,9 @@
 					</div>
 					<div class="text-center">
 						<button type="submit" id="submitBtn"
-							class="btn btn-info btn-block">Log In登录</button>
+							class="btn btn-info btn-block">
+							<fmt:message key="loginsubmit" bundle="${langRes}" />
+						</button>
 					</div>
 				</form>
 			</div>
@@ -62,23 +81,58 @@
         var name = $("input[name='loginname']").val();
         var passwd = $("input[name='loginpasswd']").val();
         $.ajax({
-          url : "http://localhost:8080/star-confplate/loginCheck/",
+          url : "loginCheck",
           type : "POST",
-          contentType: "application/json;charset=utf-8",
-          data : JSON.stringify({'loginname':name,'loginpasswd':passwd}),
+          contentType : "application/json;charset=utf-8",
+          data : JSON.stringify({
+            'loginname' : name,
+            'loginpasswd' : passwd
+          }),
           dataType : "json",
-          success : function(result,status,req) {
-            if (result == "success") {
+          success : function(result, status, req) {
+            if (result.statusCode == "0") {
               obj.parents('form').submit();
             } else {
-              $(".noticeInfo").css("display","block").text("wrong name or wrong password!");
+              $(".noticeInfo").css("display", "block").text(result.reasonCode);
             }
           },
-          error:function(req,status,reason){
-            $(".noticeInfo").css("display","block").text('Error:'+reason);
+          error : function(req, status, reason) {
+            $(".noticeInfo").css("display", "block").text('Error:' + reason);
           }
         })
         return false;
+      })
+      $("#lang_zh").click(function() {
+        $.ajax({
+          url : "langSet",
+          type : "GET",
+          contentType : "application/text;charset=utf-8",
+          data : {
+            'langChoose' : 'zh_CN'
+          },
+          dataType : "text",
+          success : function(result, status, req) {
+            if (result == "success") {
+              window.location.reload();
+            }
+          }
+        })
+      })
+      $("#lang_en").click(function() {
+        $.ajax({
+          url : "langSet",
+          type : "GET",
+          contentType : "application/text;charset=utf-8",
+          data : {
+            'langChoose' : 'en_US'
+          },
+          dataType : "text",
+          success : function(result, status, req) {
+            if (result == "success") {
+              window.location.reload();
+            }
+          }
+        })
       })
     });
   </script>

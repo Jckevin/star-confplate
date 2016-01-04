@@ -4,6 +4,8 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,6 +30,15 @@ public class LoginController {
 	
 	@Autowired
 	LoginService loginServ;
+	
+	@RequestMapping(value = "/langSet", method={RequestMethod.GET})
+	@ResponseBody
+	public String langSet(HttpServletRequest request,@RequestParam("langChoose") String langChoose) {
+		
+		logger.debug("LangChoose action.........{}\n",langChoose);
+		request.getSession().setAttribute("langSet", langChoose);
+		return "success";
+	}
 	
 	@RequestMapping(value = "/login", method={RequestMethod.POST})
 	public String login(String loginname,String loginpasswd) {
@@ -61,7 +73,6 @@ public class LoginController {
 		try {
 			checkRes = loginServ.judgeLoginUserJson((String)map.get("loginname"), (String)map.get("loginpasswd"));
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return checkRes;
