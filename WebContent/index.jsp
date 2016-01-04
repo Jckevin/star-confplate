@@ -33,8 +33,8 @@
 			<div class="form-signin">
 				<form action="login" method="POST" role="form">
 					<div class="text-center">
-						<a id="lang_zh"><fmt:message key="lang.zh" bundle="${langRes}" /></a>
-						<a id="lang_en"><fmt:message key="lang.en" bundle="${langRes}" /></a>
+						<a id="lang_zh" href="#"><fmt:message key="lang.zh" bundle="${langRes}" /></a>
+						<a id="lang_en" href="#"><fmt:message key="lang.en" bundle="${langRes}" /></a>
 					</div>
 					<br>
 					<div class="text-center">

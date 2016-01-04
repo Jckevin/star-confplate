@@ -48,7 +48,7 @@ public class LoginController {
 		
 		loginServ.judgeLoginUser(loginname, loginpasswd);
 		
-		return "";
+		return "home";
 	}
 	
 	@RequestMapping(value = "/loginCheck1", method={RequestMethod.POST})

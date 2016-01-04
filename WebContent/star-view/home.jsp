@@ -20,39 +20,36 @@
 
 <body>
 	<div id="content" class="container-fluid">
+		<nav class="navbar navbar-inverse" role="navigation">
+   			<div class="navbar-header">
+      			<a class="navbar-brand" href="#">W3Cschool</a>
+   			</div>
+   		<div>
+      		<ul class="nav navbar-nav">
+         		<li class="active"><a href="#">iOS</a></li>
+         		<li><a href="#">SVN</a></li>
+         		<li><a href="#">Java</a></li>
+      		</ul>
+   		</div>
+		</nav>
+		<!-- /nav bar -->
 		<div class="row">
-			<div class="form-signin">
-				<form action="login" method="POST" role="form">
-					<div class="text-center">
-						<img src="<c:url value='/star-img/logo1.png'/>" alt="StarSky Logo">
-					</div>
-					<br>
-					<div class="input-group">
-						<span class="input-group-addon"><fmt:message
-								key="loginname" bundle="${langRes}" /></span> <input name="loginname"
-							type="text" class="form-control" placeholder="twitterhandle">
-					</div>
-					<br>
-					<div class="input-group">
-						<span class="input-group-addon"><fmt:message
-								key="loginpass" bundle="${langRes}" /></span> <input
-							name="loginpasswd" type="password" class="form-control">
-					</div>
-					<br>
-					<div class="text-center">
-						<span class="noticeInfo"></span>
-					</div>
-					<div class="text-center">
-						<button type="submit" id="submitBtn"
-							class="btn btn-info btn-block">
-							<fmt:message key="loginsubmit" bundle="${langRes}" />
-						</button>
-					</div>
-				</form>
-			</div>
+			<div class="col-md-3" style="background-color: #dedef8;box-shadow: 
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+         <h4>第一列</h4>
+         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </div>
+      <div class="col-md-9" style="background-color: #dedef8;box-shadow: 
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+         <div class="row">
+         <div><span>first row</span></div>
+         </div>
+         <div class="row">
+         <div><span>second row</span></div>
+         </div>
+         </div>
 		</div>
 	</div>
-
 	<!-- /container -->
 
 	<script type="text/javascript"
