@@ -54,7 +54,8 @@
 					</div>
 					<br>
 					<div class="text-center">
-						<span class="noticeInfo"></span>
+						<span class="noticeInfo"><fmt:message
+								key="loginerr" bundle="${langRes}" /></span>
 					</div>
 					<div class="text-center">
 						<button type="submit" id="submitBtn"
@@ -93,7 +94,8 @@
             if (result.statusCode == "0") {
               obj.parents('form').submit();
             } else {
-              $(".noticeInfo").css("display", "block").text(result.reasonCode);
+              //$(".noticeInfo").css("display", "block").text(result.reasonCode);
+              $(".noticeInfo").css("display", "block");
             }
           },
           error : function(req, status, reason) {

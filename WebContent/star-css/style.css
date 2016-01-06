@@ -1,0 +1,29 @@
+body {
+	padding-top: 65px;
+	padding-bottom: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+ul li {
+	list-style-type: none;
+}
+
+#left {
+	display: block;
+	float: left;
+	position: relative;
+	width: 240px;
+	min-height: 500px;
+	background: url("../star-img/pattern/vichy.png") repeat #444;
+}
+
+.head-pic {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.login-status {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
