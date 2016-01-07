@@ -16,142 +16,170 @@
 <link rel="stylesheet"
 	href="<c:url value='/star-css/bootstrap-theme.min.css'/>" />
 <link rel="stylesheet" href="<c:url value='/star-css/style.css'/>" />
-
+<link rel="stylesheet"
+	href="<c:url value='/star-css/skins/_all-skins.min.css'/>">
 </head>
 
-<body>
-	<div class="container-fluid">
-		<div class="row">
-			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">W3Cschool</a>
-				</div>
-				<div>
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+		<header class="main-header">
+			<!-- Logo -->
+			<a href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+				<span class="logo-mini"><b>S.</b>A.</span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>Star</b>Ally</span>
+			</a>
+			<!-- Header Navbar: style can be found in header.less -->
+			<nav class="navbar navbar-static-top" role="navigation">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
+				<!-- Navbar Right Menu -->
+				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">iOS</a></li>
-						<li><a href="#">SVN</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"> Java <b class="caret"></b>
+						<!-- Messages: style can be found in dropdown.less-->
+						<li class="dropdown messages-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="glyphicon glyphicon-envelope"></i> <span
+								class="label label-success">4</span>
+						</a></li>
+						<!-- Notifications: style can be found in dropdown.less -->
+						<li class="dropdown notifications-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="glyphicon glyphicon-bell"></i> <span
+								class="label label-warning">10</span>
+						</a></li>
+						<!-- Tasks: style can be found in dropdown.less -->
+						<li class="dropdown tasks-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="glyphicon glyphicon-flag"></i> <span
+								class="label label-danger">9</span>
+						</a></li>
+						<!-- User Account: style can be found in dropdown.less -->
+						<li class="dropdown user user-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <img
+								src="dist/img/user2-160x160.jpg" class="user-image"
+								alt="User Image"> <span class="hidden-xs">Alexander
+									Pierce</span>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="#">jmeter</a></li>
-								<li><a href="#">EJB</a></li>
-								<li><a href="#">Jasper Report</a></li>
-								<li class="divider"></li>
-								<li><a href="#">分离的链接</a></li>
-								<li class="divider"></li>
-								<li><a href="#">另一个分离的链接</a></li>
+								<!-- User image -->
+								<li class="user-header"><img
+									src="dist/img/user2-160x160.jpg" class="img-circle"
+									alt="User Image">
+									<p>
+										Alexander Pierce - Web Developer <small>Member since
+											Nov. 2012</small>
+									</p></li>
+								<!-- Menu Body -->
+								<li class="user-body">
+									<div class="col-xs-4 text-center">
+										<a href="#">Followers</a>
+									</div>
+									<div class="col-xs-4 text-center">
+										<a href="#">Sales</a>
+									</div>
+									<div class="col-xs-4 text-center">
+										<a href="#">Friends</a>
+									</div>
+								</li>
+								<!-- Menu Footer-->
+								<li class="user-footer">
+									<div class="pull-left">
+										<a href="#" class="btn btn-default btn-flat">Profile</a>
+									</div>
+									<div class="pull-right">
+										<a href="#" class="btn btn-default btn-flat">Sign out</a>
+									</div>
+								</li>
 							</ul></li>
 					</ul>
 				</div>
-			</nav>
-		</div>
-		<div class="row">
-			<div id="left" class="col-md-2">
-				<div class="row">
-					<div class="col-md-4 head-pic">
-						<img src="star-img/user.gif" alt="head pic" class="img-thumbnail">
-					</div>
-					<div class="col-md-8 login-status">
-						<ul>
-							<li><span class="glyphicon glyphicon-user"></span><a href="#">sysadmin</a></li>
-							<li>Last Access : <small><i class="glyphicon glyphicon-calendar"></i> 16 Mar 16:32</small>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="panel-group" id="panel-421963">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<a class="panel-title" data-toggle="collapse"
-								data-parent="#panel-421963" href="#panel-element-880109">Collapsible
-								Group Item #1</a>
-						</div>
-						<div id="panel-element-880109" class="panel-collapse collapse in">
-							<div class="panel-body">Anim pariatur cliche...</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<a class="panel-title" data-toggle="collapse"
-								data-parent="#panel-421963" href="#panel-element-254815">Collapsible
-								Group Item #2</a>
-						</div>
-						<div id="panel-element-254815" class="panel-collapse collapse">
-							<div class="panel-body">Anim pariatur cliche...</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-10">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="btn-group btn-group-xs">
 
-							<button class="btn btn-default" type="button">
-								<em class="glyphicon glyphicon-align-left"></em> Left
+			</nav>
+		</header>
+		<!-- Left side column. contains the logo and sidebar -->
+		<aside class="main-sidebar">
+			<!-- sidebar: style can be found in sidebar.less -->
+			<section class="sidebar">
+				<!-- search form -->
+				<form action="#" method="get" class="sidebar-form">
+					<div class="input-group">
+						<input type="text" name="q" class="form-control"
+							placeholder="Search..."> <span class="input-group-btn">
+							<button type="submit" name="search" id="search-btn"
+								class="btn btn-flat">
+								<i class="glyphicon glyphicon-search"></i>
 							</button>
-							<button class="btn btn-default" type="button">
-								<em class="glyphicon glyphicon-align-center"></em> Center
-							</button>
-							<button class="btn btn-default" type="button">
-								<em class="glyphicon glyphicon-align-right"></em> Right
-							</button>
-							<button class="btn btn-default" type="button">
-								<em class="glyphicon glyphicon-align-justify"></em> Justify
-							</button>
-						</div>
-						<h3>h3. Lorem ipsum dolor sit amet.</h3>
+						</span>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Product</th>
-									<th>Payment Taken</th>
-									<th>Status</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>TB - Monthly</td>
-									<td>01/04/2012</td>
-									<td>Default</td>
-								</tr>
-								<tr class="active">
-									<td>1</td>
-									<td>TB - Monthly</td>
-									<td>01/04/2012</td>
-									<td>Approved</td>
-								</tr>
-								<tr class="success">
-									<td>2</td>
-									<td>TB - Monthly</td>
-									<td>02/04/2012</td>
-									<td>Declined</td>
-								</tr>
-								<tr class="warning">
-									<td>3</td>
-									<td>TB - Monthly</td>
-									<td>03/04/2012</td>
-									<td>Pending</td>
-								</tr>
-								<tr class="danger">
-									<td>4</td>
-									<td>TB - Monthly</td>
-									<td>04/04/2012</td>
-									<td>Call in to confirm</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+				</form>
+				<!-- /.search form -->
+				<!-- sidebar menu: : style can be found in sidebar.less -->
+				<ul class="sidebar-menu">
+					<li class="header">MAIN NAVIGATION</li>
+					<li class="active treeview"><a href="#"> <i
+							class="glyphicon glyphicon-dashboard"></i> <span>Dashboard</span> <i
+							class="glyphicon glyphicon-chevron-left pull-right"></i>
+					</a>
+						<ul class="treeview-menu">
+							<li><a href="index.html"><i class="glyphicon  glyphicon-star-empty"></i>
+									Dashboard v1</a></li>
+							<li class="active"><a href="index2.html"><i
+									class="glyphicon  glyphicon-star-empty"></i> Dashboard v2</a></li>
+						</ul></li>
+					<li class="treeview"><a href="#"> <i class="glyphicon glyphicon-file"></i>
+							<span>Layout Options</span> <span
+							class="label label-primary pull-right">4</span>
+					</a>
+						<ul class="treeview-menu">
+							<li><a href="pages/layout/top-nav.html"><i
+									class="glyphicon  glyphicon-star-empty"></i> Top Navigation</a></li>
+							<li><a href="pages/layout/boxed.html"><i
+									class="glyphicon  glyphicon-star-empty"></i> Boxed</a></li>
+							<li><a href="pages/layout/fixed.html"><i
+									class="glyphicon  glyphicon-star-empty"></i> Fixed</a></li>
+							<li><a href="pages/layout/collapsed-sidebar.html"><i
+									class="glyphicon  glyphicon-star-empty"></i> Collapsed Sidebar</a></li>
+						</ul></li>
+					<li><a href="pages/widgets.html"> <i class="glyphicon glyphicon-th"></i>
+							<span>Widgets</span> <small class="label pull-right bg-green">new</small>
+					</a></li>
+					
+					<li class="header">LABELS</li>
+					<li><a href="#"><i class="glyphicon  glyphicon-star-empty text-red"></i> <span>Important</span></a></li>
+					<li><a href="#"><i class="glyphicon  glyphicon-star-empty text-yellow"></i>
+							<span>Warning</span></a></li>
+					<li><a href="#"><i class="glyphicon  glyphicon-star-empty text-aqua"></i> <span>Information</span></a></li>
+				</ul>
+			</section>
+		</aside>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					Dashboard <small>Version 2.0</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="glyphicon glyphicon-dashboard"></i> Home</a></li>
+					<li class="active">Dashboard</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content"></section>
+
 		</div>
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">
+				<b>Version</b> 2.3.0
+			</div>
+			<strong>Copyright &copy; 2014-2015 <a
+				href="http://almsaeedstudio.com">Almsaeed Studio</a>.
+			</strong> All rights reserved.
+		</footer>
+		<aside class="control-sidebar control-sidebar-dark"></aside>
 	</div>
 	<!-- /container -->
 
@@ -159,69 +187,7 @@
 		src="<c:url value='/star-js/jquery-1.11.3.min.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
-	<script type="text/javascript">
-    $(document).ready(function() {
-      $("#submitBtn").click(function(e) {
-        e.preventDefault();
-        var obj = $(this);
-        var name = $("input[name='loginname']").val();
-        var passwd = $("input[name='loginpasswd']").val();
-        $.ajax({
-          url : "loginCheck",
-          type : "POST",
-          contentType : "application/json;charset=utf-8",
-          data : JSON.stringify({
-            'loginname' : name,
-            'loginpasswd' : passwd
-          }),
-          dataType : "json",
-          success : function(result, status, req) {
-            if (result.statusCode == "0") {
-              obj.parents('form').submit();
-            } else {
-              $(".noticeInfo").css("display", "block").text(result.reasonCode);
-            }
-          },
-          error : function(req, status, reason) {
-            $(".noticeInfo").css("display", "block").text('Error:' + reason);
-          }
-        })
-        return false;
-      })
-      $("#lang_zh").click(function() {
-        $.ajax({
-          url : "langSet",
-          type : "GET",
-          contentType : "application/text;charset=utf-8",
-          data : {
-            'langChoose' : 'zh_CN'
-          },
-          dataType : "text",
-          success : function(result, status, req) {
-            if (result == "success") {
-              window.location.reload();
-            }
-          }
-        })
-      })
-      $("#lang_en").click(function() {
-        $.ajax({
-          url : "langSet",
-          type : "GET",
-          contentType : "application/text;charset=utf-8",
-          data : {
-            'langChoose' : 'en_US'
-          },
-          dataType : "text",
-          success : function(result, status, req) {
-            if (result == "success") {
-              window.location.reload();
-            }
-          }
-        })
-      })
-    });
-  </script>
+    <script src="<c:url value='/star-js/app.min.js'/>"></script>
 
 </body>
 </html>
