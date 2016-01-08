@@ -43,19 +43,19 @@ public class LoginService {
 		return result;
 	}
 	
-	public String judgeLoginUser(String name,String passwd){
+	public int judgeLoginUser(String name,String passwd){
 		OperatorWeb user = daoOperatorWeb.findByNumber(name);
 		if(user == null){
 			logger.debug("please input the right user NAME!");
-			return "errUser";
+			return 1;
 		}else{
 			String resPass = user.getPassword();
 			if(resPass.equals(passwd)){
 				logger.debug("sucessful login start direc to the home page.");
-				return "success";
+				return 0;
 			}else{
 				logger.debug("please input the right use PASSWORD!");
-				return "errPasswd";
+				return 2;
 			}
 		}
 	}

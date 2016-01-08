@@ -58,15 +58,15 @@
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <img
-								src="<c:url value='/star-img/user2-160x160.jpg'/>" class="user-image"
-								alt="User Image"> <span class="hidden-xs">Alexander
-									Pierce</span>
+								src="<c:url value='/star-img/user2-160x160.jpg'/>"
+								class="user-image" alt="User Image"> <span
+								class="hidden-xs">Alexander Pierce</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
 								<li class="user-header"><img
-									src="<c:url value='/star-img/user2-160x160.jpg'/>" class="img-circle"
-									alt="User Image">
+									src="<c:url value='/star-img/user2-160x160.jpg'/>"
+									class="img-circle" alt="User Image">
 									<p>
 										Alexander Pierce - Web Developer <small>Member since
 											Nov. 2012</small>
@@ -119,18 +119,18 @@
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
 					<li class="active treeview"><a href="#"> <i
-							class="glyphicon glyphicon-dashboard"></i> <span>Dashboard</span> <i
-							class="glyphicon glyphicon-chevron-left pull-right"></i>
+							class="glyphicon glyphicon-dashboard"></i> <span>Dashboard</span>
+							<i class="glyphicon glyphicon-chevron-left pull-right"></i>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="index.html"><i class="glyphicon  glyphicon-star-empty"></i>
-									Dashboard v1</a></li>
+							<li><a href="index.html"><i
+									class="glyphicon  glyphicon-star-empty"></i> Dashboard v1</a></li>
 							<li class="active"><a href="index2.html"><i
 									class="glyphicon  glyphicon-star-empty"></i> Dashboard v2</a></li>
 						</ul></li>
-					<li class="treeview"><a href="#"> <i class="glyphicon glyphicon-file"></i>
-							<span>Layout Options</span> <span
-							class="label label-primary pull-right">4</span>
+					<li class="treeview"><a href="#"> <i
+							class="glyphicon glyphicon-file"></i> <span>Layout Options</span>
+							<span class="label label-primary pull-right">4</span>
 					</a>
 						<ul class="treeview-menu">
 							<li><a href="pages/layout/top-nav.html"><i
@@ -142,15 +142,18 @@
 							<li><a href="pages/layout/collapsed-sidebar.html"><i
 									class="glyphicon  glyphicon-star-empty"></i> Collapsed Sidebar</a></li>
 						</ul></li>
-					<li><a href="pages/widgets.html"> <i class="glyphicon glyphicon-th"></i>
-							<span>Widgets</span> <small class="label pull-right bg-green">new</small>
+					<li><a href="pages/widgets.html"> <i
+							class="glyphicon glyphicon-th"></i> <span>Widgets</span> <small
+							class="label pull-right bg-green">new</small>
 					</a></li>
-					
+
 					<li class="header">LABELS</li>
-					<li><a href="#"><i class="glyphicon  glyphicon-star-empty text-red"></i> <span>Important</span></a></li>
-					<li><a href="#"><i class="glyphicon  glyphicon-star-empty text-yellow"></i>
-							<span>Warning</span></a></li>
-					<li><a href="#"><i class="glyphicon  glyphicon-star-empty text-aqua"></i> <span>Information</span></a></li>
+					<li><a href="#"><i
+							class="glyphicon  glyphicon-star-empty text-red"></i> <span>Important</span></a></li>
+					<li><a href="#"><i
+							class="glyphicon  glyphicon-star-empty text-yellow"></i> <span>Warning</span></a></li>
+					<li><a href="#"><i
+							class="glyphicon  glyphicon-star-empty text-aqua"></i> <span>Information</span></a></li>
 				</ul>
 			</section>
 		</aside>
@@ -162,13 +165,37 @@
 					Dashboard <small>Version 2.0</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#"><i class="glyphicon glyphicon-dashboard"></i> Home</a></li>
+					<li><a href="#"><i class="glyphicon glyphicon-dashboard"></i>
+							Home</a></li>
 					<li class="active">Dashboard</li>
 				</ol>
 			</section>
 
 			<!-- Main content -->
-			<section class="content"></section>
+			<section class="content">
+				<div class="row">
+					<div style="border-bottom:1px solid #000">
+						<c:set var="menu1" scope="session" value="${menu}" />
+							<c:out value="${menu1.nodeName}" />
+							<c:forEach items="${menu1.nodeList}" var="inner">
+								<c:out value="${inner.nodeName}" />
+								<c:out value="${inner.nodeUrl}" />
+								<c:out value="${inner.nodeView}" />
+							</c:forEach>
+					</div>
+					<div style="border-bottom:1px solid #111">
+						<c:set var="menu2" scope="session" value="${metree}" />
+							<c:forEach items="${menu2}" var="inner2">
+								<c:out value="${inner2.nodeName}" />
+								<c:forEach items="${inner2.nodeList}" var="inner3">
+								<c:out value="${inner3.nodeName}" />
+								<c:out value="${inner3.nodeUrl}" />
+								<c:out value="${inner3.nodeView}" />
+								</c:forEach>
+							</c:forEach>
+					</div>
+				</div>
+			</section>
 
 		</div>
 		<footer class="main-footer">
@@ -187,7 +214,7 @@
 		src="<c:url value='/star-js/jquery-1.11.3.min.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/star-js/app.min.js'/>"></script>
+	<script src="<c:url value='/star-js/app.min.js'/>"></script>
 
 </body>
 </html>

@@ -58,8 +58,8 @@ public class LoginController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		MediaType mediaType = new MediaType("text", "html", Charset.forName("UTF-8"));
 		responseHeaders.setContentType(mediaType);
-		String checkRes = loginServ.judgeLoginUser((String)map.get("loginname"), (String)map.get("loginpasswd"));
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(checkRes, responseHeaders, 
+		loginServ.judgeLoginUser((String)map.get("loginname"), (String)map.get("loginpasswd"));
+		ResponseEntity<String> responseEntity = new ResponseEntity<String>("", responseHeaders, 
 				HttpStatus.CREATED);
 		return responseEntity;
 	}

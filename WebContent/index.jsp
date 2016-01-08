@@ -31,7 +31,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="form-signin">
-				<form action="login" method="POST" role="form">
+				<form action="home" method="POST" role="form">
 					<div class="text-center">
 						<a id="lang_zh" href="#"><fmt:message key="lang.zh" bundle="${langRes}" /></a>
 						<a id="lang_en" href="#"><fmt:message key="lang.en" bundle="${langRes}" /></a>
