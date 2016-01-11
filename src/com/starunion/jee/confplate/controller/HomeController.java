@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.starunion.jee.confplate.po.MenuNode;
+import com.starunion.jee.confplate.service.HomeService;
 import com.starunion.jee.confplate.service.LoginService;
 
 @Controller
@@ -20,6 +21,8 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired
 	LoginService loginServ;
+	@Autowired
+	HomeService homeServ;
 //	DaoUserSip daoUserSip;
 	
 
@@ -58,6 +61,8 @@ public class HomeController {
 			
 			model.addAttribute("menu", used1);
 			model.addAttribute("metree", tree);
+			
+			homeServ.getMenuTree();
 		}
 		
 		
