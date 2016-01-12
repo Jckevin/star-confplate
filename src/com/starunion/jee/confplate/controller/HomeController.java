@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.starunion.jee.confplate.po.HtmlMenu;
 import com.starunion.jee.confplate.po.MenuNode;
+import com.starunion.jee.confplate.po.MenuTreeNode;
 import com.starunion.jee.confplate.service.HomeService;
 import com.starunion.jee.confplate.service.LoginService;
 
@@ -63,6 +65,19 @@ public class HomeController {
 			model.addAttribute("metree", tree);
 			
 			homeServ.getMenuTree();
+			
+			List<MenuTreeNode> treeNodeList = new ArrayList<MenuTreeNode>();
+			treeNodeList = homeServ.getMenuTreeList();
+			for (MenuTreeNode node : treeNodeList) {
+				logger.debug("controller -> first level Node :{}", node.getTreeNodeName());
+				for (HtmlMenu hm : node.getSubNodeList()) {
+					logger.debug("subInfo : {}", hm.getName());
+					logger.debug("subInfo : {}", hm.getAction());
+				}
+			}
+			
+			model.addAttribute("mytree", treeNodeList);
+			
 		}
 		
 		

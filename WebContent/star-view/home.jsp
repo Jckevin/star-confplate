@@ -174,25 +174,41 @@
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
-					<div style="border-bottom:1px solid #000">
+					<div style="border-bottom: 1px solid #000">
 						<c:set var="menu1" scope="session" value="${menu}" />
-							<c:out value="${menu1.nodeName}" />
-							<c:forEach items="${menu1.nodeList}" var="inner">
-								<c:out value="${inner.nodeName}" />
-								<c:out value="${inner.nodeUrl}" />
-								<c:out value="${inner.nodeView}" />
-							</c:forEach>
+						<c:out value="${menu1.nodeName}" />
+						<c:forEach items="${menu1.nodeList}" var="inner">
+							<c:out value="${inner.nodeName}" />
+							<c:out value="${inner.nodeUrl}" />
+							<c:out value="${inner.nodeView}" />
+						</c:forEach>
 					</div>
-					<div style="border-bottom:1px solid #111">
+					<div style="border-bottom: 1px solid #111">
 						<c:set var="menu2" scope="session" value="${metree}" />
-							<c:forEach items="${menu2}" var="inner2">
-								<c:out value="${inner2.nodeName}" />
-								<c:forEach items="${inner2.nodeList}" var="inner3">
+						<c:forEach items="${menu2}" var="inner2">
+							<c:out value="${inner2.nodeName}" />
+							<c:forEach items="${inner2.nodeList}" var="inner3">
 								<c:out value="${inner3.nodeName}" />
 								<c:out value="${inner3.nodeUrl}" />
 								<c:out value="${inner3.nodeView}" />
-								</c:forEach>
 							</c:forEach>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="row">
+					<div style="border-bottom: 1px solid #000">
+						<c:forEach items="${mytree}" var="tree">
+							<c:out value="${tree.treeNodeName}" />
+							<c:out value="${tree.treeNodeId}" />
+							<c:out value="${tree.treeNodeUrl}" />
+							<c:forEach items="${tree.subNodeList}" var="subTree">
+							<div style="border-bottom: 1px solid #111">
+								<c:out value="${subTree.id}" />
+								<c:out value="${subTree.level}" />
+								<c:out value="${subTree.status}" />
+								<c:out value="${subTree.name}" /></div>
+							</c:forEach>
+						</c:forEach>
 					</div>
 				</div>
 			</section>
