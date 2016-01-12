@@ -6,6 +6,7 @@ public class MenuTreeNode {
 	private Integer treeNodeId;
 	private String treeNodeName;
 	private String treeNodeUrl;
+	private String treeNodePic;
 	private List<HtmlMenu> subNodeList;
 	
 	public MenuTreeNode(){
@@ -42,6 +43,14 @@ public class MenuTreeNode {
 
 	public void setSubNodeList(List<HtmlMenu> subNodeList) {
 		this.subNodeList = subNodeList;
+	}
+
+	public String getTreeNodePic() {
+		return treeNodePic;
+	}
+
+	public void setTreeNodePic(String treeNodePic) {
+		this.treeNodePic = treeNodePic;
 	}
 	
 }

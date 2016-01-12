@@ -10,6 +10,7 @@ public class HtmlMenu {
 	private Integer status;
 	private String name;
 	private String action;
+	private String pic;
 	
 	public HtmlMenu(){
 		
@@ -61,6 +62,14 @@ public class HtmlMenu {
 
 	public void setAction(String action) {
 		this.action = action;
+	}
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
 	}
 	
 }

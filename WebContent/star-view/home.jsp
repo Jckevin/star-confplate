@@ -118,9 +118,20 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
+					<c:forEach items="${mytree}" var="tree">
+						<li class="treeview">
+							<a href="#"><i class="${tree.treeNodePic}"></i>
+						        <span><fmt:message key="${tree.treeNodeName}" bundle="${langRes}" /></span>
+						    </a>
+							<ul class="treeview-menu">
+								<c:forEach items="${tree.subNodeList}" var="subTree">
+									<li><a href="index.html"><i class="${subTree.pic}"></i>
+									    <fmt:message key="${subTree.name}" bundle="${langRes}" /></a></li>
+								</c:forEach>
+							</ul></li>
+					</c:forEach>
 					<li class="active treeview"><a href="#"> <i
 							class="glyphicon glyphicon-dashboard"></i> <span>Dashboard</span>
-							<i class="glyphicon glyphicon-chevron-left pull-right"></i>
 					</a>
 						<ul class="treeview-menu">
 							<li><a href="index.html"><i
@@ -174,42 +185,7 @@
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
-					<div style="border-bottom: 1px solid #000">
-						<c:set var="menu1" scope="session" value="${menu}" />
-						<c:out value="${menu1.nodeName}" />
-						<c:forEach items="${menu1.nodeList}" var="inner">
-							<c:out value="${inner.nodeName}" />
-							<c:out value="${inner.nodeUrl}" />
-							<c:out value="${inner.nodeView}" />
-						</c:forEach>
-					</div>
-					<div style="border-bottom: 1px solid #111">
-						<c:set var="menu2" scope="session" value="${metree}" />
-						<c:forEach items="${menu2}" var="inner2">
-							<c:out value="${inner2.nodeName}" />
-							<c:forEach items="${inner2.nodeList}" var="inner3">
-								<c:out value="${inner3.nodeName}" />
-								<c:out value="${inner3.nodeUrl}" />
-								<c:out value="${inner3.nodeView}" />
-							</c:forEach>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="row">
-					<div style="border-bottom: 1px solid #000">
-						<c:forEach items="${mytree}" var="tree">
-							<c:out value="${tree.treeNodeName}" />
-							<c:out value="${tree.treeNodeId}" />
-							<c:out value="${tree.treeNodeUrl}" />
-							<c:forEach items="${tree.subNodeList}" var="subTree">
-							<div style="border-bottom: 1px solid #111">
-								<c:out value="${subTree.id}" />
-								<c:out value="${subTree.level}" />
-								<c:out value="${subTree.status}" />
-								<c:out value="${subTree.name}" /></div>
-							</c:forEach>
-						</c:forEach>
-					</div>
+					<div style="border-bottom: 1px solid #000"></div>
 				</div>
 			</section>
 

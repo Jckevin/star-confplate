@@ -13,27 +13,29 @@ import com.starunion.jee.confplate.po.OperatorWeb;
 @Service
 public class LoginService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginService.class);
-	
+
 	@Autowired
 	DaoOperatorWeb daoOperatorWeb;
-	public String judgeLoginUserJson(String name,String passwd) throws JsonProcessingException{
+
+	public String judgeLoginUserJson(String name, String passwd) throws JsonProcessingException {
+		logger.debug("begin check login,sql waste time ?.");
 		OperatorWeb user = daoOperatorWeb.findByNumber(name);
 		ObjectMapper mapper = new ObjectMapper();
-		HashMap<String, String> map = new HashMap<String,String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		String result = "";
-		if(user == null){
+		if (user == null) {
 			logger.debug("please input the right user NAME!");
 			map.put("statusCode", "1");
 			map.put("reasonCode", "loginErrUser");
 			result = mapper.writeValueAsString(map);
-		}else{
+		} else {
 			String resPass = user.getPassword();
-			if(resPass.equals(passwd)){
+			if (resPass.equals(passwd)) {
 				logger.debug("sucessful login start direc to the home page.");
 				map.put("statusCode", "0");
 				map.put("reasonCode", "loginSuccess");
 				result = mapper.writeValueAsString(map);
-			}else{
+			} else {
 				logger.debug("please input the right use PASSWORD!");
 				map.put("statusCode", "2");
 				map.put("reasonCode", "loginErrPasswd");
@@ -42,18 +44,18 @@ public class LoginService {
 		}
 		return result;
 	}
-	
-	public int judgeLoginUser(String name,String passwd){
+
+	public int judgeLoginUser(String name, String passwd) {
 		OperatorWeb user = daoOperatorWeb.findByNumber(name);
-		if(user == null){
+		if (user == null) {
 			logger.debug("please input the right user NAME!");
 			return 1;
-		}else{
+		} else {
 			String resPass = user.getPassword();
-			if(resPass.equals(passwd)){
-				logger.debug("sucessful login start direc to the home page.");
+			if (resPass.equals(passwd)) {
+				logger.debug("recheck, sucessful login start direc to the home page.");
 				return 0;
-			}else{
+			} else {
 				logger.debug("please input the right use PASSWORD!");
 				return 2;
 			}
