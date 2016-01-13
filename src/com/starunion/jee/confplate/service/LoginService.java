@@ -18,7 +18,6 @@ public class LoginService {
 	DaoOperatorWeb daoOperatorWeb;
 
 	public String judgeLoginUserJson(String name, String passwd) throws JsonProcessingException {
-		logger.debug("begin check login,sql waste time ?.");
 		OperatorWeb user = daoOperatorWeb.findByNumber(name);
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, String> map = new HashMap<String, String>();

@@ -11,6 +11,7 @@ public class HtmlMenu {
 	private String name;
 	private String action;
 	private String pic;
+	private String type;
 	
 	public HtmlMenu(){
 		
@@ -70,6 +71,14 @@ public class HtmlMenu {
 
 	public void setPic(String pic) {
 		this.pic = pic;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

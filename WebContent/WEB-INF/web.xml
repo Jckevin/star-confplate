@@ -4,14 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-	<!-- 使用tomcat自带的servlet来解析静态资源，效率比springmvc的静态资源映射的方法要更高效。 1.配置方法如下： <servlet-mapping> 
-		<servlet-name>default</servlet-name> <url-pattern>*.js</url-pattern> </servlet-mapping> 
-		<servlet-mapping> <servlet-name>default</servlet-name> <url-pattern>*.css</url-pattern> 
-		</servlet-mapping> 保证以上的servlet-mapping在Spring的org.springframework.web.servlet.DispatcherServlet之前生效。 
-		2.此后jsp页面的中的脚本引用要通过完整的资源路径来访问。例如 <script type="text/javascript" src="/star-confplate/star-js/capture.js"></script> 
-		这种方式有风险，就是万一项目改名称，绝对路径要通通改一遍。。。 替代方案： <script type="text/javascript" src="<c:url 
-		value='/star-js/capture.js'/>"></script> 通过jstl的使用，可以自动加上项目的名称。 3.最后一个注意事项 
-		必须保证静态资源在运行项目的根目录下，如果在WEB-INF下，以上配置任然会提示404错误。 【所以】，建议小并发的web系统中，使用Spring的资源映射方法，项目打包更简洁。实在需要提升这块的性能了，再用这种方案配置。 -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
@@ -60,7 +52,20 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-
+	<!-- filter for session timeout skip to index.jsp -->
+	<filter>
+		<filter-name>authFilter</filter-name>
+		<filter-class>com.starunion.jee.confplate.controller.AuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>authFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	<!-- session timeout set 30 minutes -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
 	<context-param>
 		<param-name>log4jContextName</param-name>
 		<param-value>star-confplate</param-value>

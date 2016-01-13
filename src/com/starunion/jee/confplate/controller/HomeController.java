@@ -3,6 +3,8 @@ package com.starunion.jee.confplate.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,13 @@ public class HomeController {
 	
 
 	@RequestMapping(value = "/home", method={RequestMethod.POST})
-	public String login2home(Model model,String loginname,String loginpasswd) {
+	public String login2home(Model model,String loginname,String loginpasswd, HttpSession httpSession) {
 		
 		logger.debug("before get home parameters, recheck user info");
 		
 		int res = loginServ.judgeLoginUser(loginname, loginpasswd);
-		if(res == 0){			
+		if(res == 0){
+			httpSession.setAttribute("user", loginname);
 			List<MenuTreeNode> treeNodeList = new ArrayList<MenuTreeNode>();
 			treeNodeList = homeServ.getMenuTreeList();
 			for (MenuTreeNode node : treeNodeList) {

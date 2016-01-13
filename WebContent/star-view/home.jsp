@@ -119,14 +119,14 @@
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
 					<c:forEach items="${mytree}" var="tree">
-						<li class="treeview">
-							<a href="#"><i class="${tree.treeNodePic}"></i>
-						        <span><fmt:message key="${tree.treeNodeName}" bundle="${langRes}" /></span>
-						    </a>
+						<li class="treeview"><a href="#"><i
+								class="${tree.treeNodePic}"></i> <span><fmt:message
+										key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
 							<ul class="treeview-menu">
 								<c:forEach items="${tree.subNodeList}" var="subTree">
-									<li><a href="index.html"><i class="${subTree.pic}"></i>
-									    <fmt:message key="${subTree.name}" bundle="${langRes}" /></a></li>
+									<li><a class="${subTree.type}" href="${subTree.action}"><i
+											class="${subTree.pic}"></i> <fmt:message
+												key="${subTree.name}" bundle="${langRes}" /></a></li>
 								</c:forEach>
 							</ul></li>
 					</c:forEach>
@@ -185,7 +185,8 @@
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
-					<div style="border-bottom: 1px solid #000"></div>
+					<div id="defcont" style="border-bottom: 1px solid #000">I AM
+						DEFAULT !</div>
 				</div>
 			</section>
 
@@ -207,6 +208,33 @@
 	<script type="text/javascript"
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
+
+	<script type="text/javascript">
+    $(document).ready(function() {
+      $(".ajaxNode").click(function(e) {
+        e.preventDefault();
+        var obj = $(this);
+        var act = obj.attr("href");
+        $.ajax({
+          url : act,
+          type : "POST",
+          contentType : "application/json;charset=utf-8",
+          dataType : "json",
+          success : function(result, status, req) {
+            $.each(result, function(ky, vl) {
+              alert("key" + ky);
+              alert("value" + vl);
+            });
+          },
+          error : function(req, status, reason) {
+			alert("ajax error !");
+          }
+        })
+
+        return false;
+      })
+    });
+  </script>
 
 </body>
 </html>
