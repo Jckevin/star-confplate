@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,21 +17,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class FormController {
 	private static final Logger logger = LoggerFactory.getLogger(FormController.class);
-	
-	@RequestMapping(value = "/ipv4", method={RequestMethod.POST})
+
+	@RequestMapping(value = "/ipv4", method = { RequestMethod.GET })
 	@ResponseBody
-	public String getIpv4() {
+	public String getIpv4(@RequestParam("node") String node) {
 		String result = null;
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> respMap = new HashMap<String, String>();
-		respMap.put("ipAddr", "192.168.8.11");
-		respMap.put("ipNetmask", "255.255.255.0");
+		Map<String, Object> respMap = new HashMap<String, Object>();
+		logger.debug("from node = {}", node);
+		Map<String, String> insideMap = new HashMap<String, String>();
+		insideMap.put("ipAddr", "192.168.8.11");
+		insideMap.put("ipNetmask", "255.255.255.0");
+		respMap.put("node", node);
+		respMap.put("insMap", insideMap);
 		try {
 			result = mapper.writeValueAsString(respMap);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		logger.debug("push result:{}",result);
+		logger.debug("push result:{}", result);
 		return result;
 	}
 }

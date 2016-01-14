@@ -56,43 +56,11 @@
 								class="label label-danger">9</span>
 						</a></li>
 						<!-- User Account: style can be found in dropdown.less -->
-						<li class="dropdown user user-menu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"> <img
-								src="<c:url value='/star-img/user2-160x160.jpg'/>"
-								class="user-image" alt="User Image"> <span
-								class="hidden-xs">Alexander Pierce</span>
-						</a>
-							<ul class="dropdown-menu">
-								<!-- User image -->
-								<li class="user-header"><img
-									src="<c:url value='/star-img/user2-160x160.jpg'/>"
-									class="img-circle" alt="User Image">
-									<p>
-										Alexander Pierce - Web Developer <small>Member since
-											Nov. 2012</small>
-									</p></li>
-								<!-- Menu Body -->
-								<li class="user-body">
-									<div class="col-xs-4 text-center">
-										<a href="#">Followers</a>
-									</div>
-									<div class="col-xs-4 text-center">
-										<a href="#">Sales</a>
-									</div>
-									<div class="col-xs-4 text-center">
-										<a href="#">Friends</a>
-									</div>
-								</li>
-								<!-- Menu Footer-->
-								<li class="user-footer">
-									<div class="pull-left">
-										<a href="#" class="btn btn-default btn-flat">Profile</a>
-									</div>
-									<div class="pull-right">
-										<a href="#" class="btn btn-default btn-flat">Sign out</a>
-									</div>
-								</li>
-							</ul></li>
+						<li class="dropdown user user-menu"><a href="logout"
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="glyphicon glyphicon-log-out"></i><span class="hidden-xs"><fmt:message
+										key="logout" bundle="${langRes}" /></span>
+						</a></li>
 					</ul>
 				</div>
 
@@ -130,29 +98,6 @@
 								</c:forEach>
 							</ul></li>
 					</c:forEach>
-					<li class="active treeview"><a href="#"> <i
-							class="glyphicon glyphicon-dashboard"></i> <span>Dashboard</span>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="index.html"><i
-									class="glyphicon  glyphicon-star-empty"></i> Dashboard v1</a></li>
-							<li class="active"><a href="index2.html"><i
-									class="glyphicon  glyphicon-star-empty"></i> Dashboard v2</a></li>
-						</ul></li>
-					<li class="treeview"><a href="#"> <i
-							class="glyphicon glyphicon-file"></i> <span>Layout Options</span>
-							<span class="label label-primary pull-right">4</span>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="pages/layout/top-nav.html"><i
-									class="glyphicon  glyphicon-star-empty"></i> Top Navigation</a></li>
-							<li><a href="pages/layout/boxed.html"><i
-									class="glyphicon  glyphicon-star-empty"></i> Boxed</a></li>
-							<li><a href="pages/layout/fixed.html"><i
-									class="glyphicon  glyphicon-star-empty"></i> Fixed</a></li>
-							<li><a href="pages/layout/collapsed-sidebar.html"><i
-									class="glyphicon  glyphicon-star-empty"></i> Collapsed Sidebar</a></li>
-						</ul></li>
 					<li><a href="pages/widgets.html"> <i
 							class="glyphicon glyphicon-th"></i> <span>Widgets</span> <small
 							class="label pull-right bg-green">new</small>
@@ -173,12 +118,14 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Dashboard <small>Version 2.0</small>
+					<fmt:message key="softname" bundle="${langRes}" />
+					<small><fmt:message key="softver" bundle="${langRes}" /></small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="#"><i class="glyphicon glyphicon-dashboard"></i>
-							Home</a></li>
-					<li class="active">Dashboard</li>
+					<li><a href="#"><i class="glyphicon glyphicon-home"></i> <fmt:message
+								key="home" bundle="${langRes}" /></a></li>
+					<li id="nodeLoc" class="active"><fmt:message key="home"
+							bundle="${langRes}" /></li>
 				</ol>
 			</section>
 
@@ -187,6 +134,12 @@
 				<div class="row">
 					<div id="defcont" style="border-bottom: 1px solid #000">I AM
 						DEFAULT !</div>
+					<div class="col-md-6 col-sm-8 col-xs-12">
+						<form id="actform" role="form"></form>
+					</div>
+				</div>
+				<div class="row">
+					<button type="button" class="btn btn-primary"><fmt:message key="submit" bundle="${langRes}" /></button>
 				</div>
 			</section>
 
@@ -210,30 +163,46 @@
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
 
 	<script type="text/javascript">
-    $(document).ready(function() {
-      $(".ajaxNode").click(function(e) {
-        e.preventDefault();
-        var obj = $(this);
-        var act = obj.attr("href");
-        $.ajax({
-          url : act,
-          type : "POST",
-          contentType : "application/json;charset=utf-8",
-          dataType : "json",
-          success : function(result, status, req) {
-            $.each(result, function(ky, vl) {
-              alert("key" + ky);
-              alert("value" + vl);
-            });
-          },
-          error : function(req, status, reason) {
-			alert("ajax error !");
-          }
-        })
+    $(document)
+        .ready(
+            function() {
+              $(".ajaxNode")
+                  .click(
+                      function(e) {
+                        e.preventDefault();
+                        var obj = $(this);
+                        var act = obj.attr("href");
+                        $.ajax({
+                              url : act,
+                              type : "GET",
+                              contentType : "application/text;charset=utf-8",
+                              data : {"node":act},
+                              dataType : "json",
+                              success : function(result, status, req) {
+                                $("#defcont").empty();
+                                $("#nodeLoc").html(result.node); 
+                                var htmcont = "";
+                                var subResult = result.insMap;
+                                $.each(subResult,function(ky, vl) {
+                                    htmcont += "<div class=\"input-group\">"
+                                    htmcont += "<span class=\"input-group-addon\">";
+                                    htmcont += ky;
+                                    htmcont += "</span>";
+                                    htmcont += "<input type=\"text\" class=\"form-control\" value=\"";
+                                    htmcont += vl;
+                                    htmcont += "\">";
+                                    htmcont += "</div>";
+                                    });
+                                $("#actform").html(htmcont);
+                              },
+                              error : function(req, status, reason) {
+                                alert("ajax error !");
+                              }
+                            })
 
-        return false;
-      })
-    });
+                        return false;
+                      })
+            });
   </script>
 
 </body>
