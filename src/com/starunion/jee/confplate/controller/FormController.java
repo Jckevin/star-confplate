@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,5 +46,13 @@ public class FormController {
 		}
 		logger.debug("push result:{}", result);
 		return result;
+	}
+	
+	@RequestMapping(value = "/ipconf", method = { RequestMethod.GET })
+	public String baseForm(Model model,@RequestParam("db") String node) {
+		logger.debug("node={}",node);
+		model.addAttribute("node", node);
+		model.addAttribute("insList", formServ.getNetworkList());
+		return "baseform";
 	}
 }

@@ -48,6 +48,7 @@ public class HomeController {
 			}
 			
 			model.addAttribute("mytree", treeNodeList);
+			httpSession.setAttribute("menutree", treeNodeList);
 			
 		}
 		

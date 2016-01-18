@@ -1,6 +1,9 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${!(empty sessionScope.menutree)}">
+	<c:set var="tree" value="${sessionScope.menutree}" />
+</c:if>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -86,7 +89,7 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
-					<c:forEach items="${mytree}" var="tree">
+					<c:forEach items="${menutree}" var="tree">
 						<li class="treeview"><a href="#"><i
 								class="${tree.treeNodePic}"></i> <span><fmt:message
 										key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
