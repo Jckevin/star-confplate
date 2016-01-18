@@ -131,15 +131,15 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<div class="row">
-					<div id="defcont" style="border-bottom: 1px solid #000">I AM
-						DEFAULT !</div>
+				<div class="box box-primary">
 					<div class="col-md-6 col-sm-8 col-xs-12">
-						<form id="actform" role="form"></form>
+						<form id="actform" class="form-horizontal">
+							<div id="actformdiv" class="box-body">
+								<!-- here ajax produce actively -->
+							</div>
+							<!-- /.box-body -->
+						</form>
 					</div>
-				</div>
-				<div class="row">
-					<button type="button" class="btn btn-primary"><fmt:message key="submit" bundle="${langRes}" /></button>
 				</div>
 			</section>
 
@@ -172,28 +172,39 @@
                         e.preventDefault();
                         var obj = $(this);
                         var act = obj.attr("href");
-                        $.ajax({
+                        $
+                            .ajax({
                               url : act,
                               type : "GET",
                               contentType : "application/text;charset=utf-8",
-                              data : {"node":act},
+                              data : {
+                                "node" : act
+                              },
                               dataType : "json",
                               success : function(result, status, req) {
-                                $("#defcont").empty();
-                                $("#nodeLoc").html(result.node); 
-                                var htmcont = "";
+                                $("#nodeLoc").html(result.node);
+                                $("#actform").attr("action","setipv4");
+                                var htmcont = "<br>";
                                 var subResult = result.insMap;
-                                $.each(subResult,function(ky, vl) {
-                                    htmcont += "<div class=\"input-group\">"
-                                    htmcont += "<span class=\"input-group-addon\">";
-                                    htmcont += ky;
-                                    htmcont += "</span>";
-                                    htmcont += "<input type=\"text\" class=\"form-control\" value=\"";
+                                $
+                                    .each(
+                                        subResult,
+                                        function(ky, vl) {
+                                          htmcont += "<div class=\"form-group\">"
+                                          htmcont += "<label class=\"col-xs-3 control-label\">";
+                                          htmcont += ky;
+                                          htmcont += "</label>";
+                                          htmcont += "<div class=\"col-xs-9\">";
+                                          htmcont += "<input type=\"text\" class=\"form-control\" value=\"";
                                     htmcont += vl;
                                     htmcont += "\">";
-                                    htmcont += "</div>";
-                                    });
-                                $("#actform").html(htmcont);
+                                          htmcont += "</div></div>";
+                                        });
+                                htmcont += "<div class=\"col-xs-3\"></div><div class=\"col-xs-9\"><button type=\"submit\" id=\"sss\" class=\"btn btn-primary pull-left\">";
+                                htmcont += result.submit;
+                                htmcont += "</button></div>";
+                                $("#actformdiv").html(htmcont);
+                                
                               },
                               error : function(req, status, reason) {
                                 alert("ajax error !");
@@ -202,8 +213,24 @@
 
                         return false;
                       })
+              $("#sss").click(function() {
+                alert("aha click!");
+                $.ajax({
+                  url : "setGen",
+                  type : "GET",
+                  contentType : "application/text;charset=utf-8",
+                  data : {
+                    'langChoose' : 'zh_CN'
+                  },
+                  dataType : "text",
+                  success : function(result, status, req) {
+                    if (result == "success") {
+                      window.location.reload();
+                    }
+                  }
+                })
+              })
             });
   </script>
-
 </body>
 </html>
