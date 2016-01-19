@@ -31,8 +31,6 @@ public class FormController {
 
 	@RequestMapping(value = "/baseFormAction", method = { RequestMethod.GET })
 	public String baseForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node) {
-		logger.debug("node={}", node);
-		logger.debug("menu={}", menu);
 		model.addAttribute("node", node);
 		model.addAttribute("menu", menu);
 		model.addAttribute("insList", formGetServ.getGenVoList(node));
@@ -46,18 +44,18 @@ public class FormController {
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> revMap = (HashMap<String, String>) map;
 		int res = formSubmitServ.submitGenVoList(nodeLoc, revMap);
-		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> respMap = new HashMap<String, Object>();
-		respMap.put("node", "test");
-		respMap.put("submit", "ok");
+		if(res == 0){
+			respMap.put("result", "success");	
+		}
 
 		try {
 			result = mapper.writeValueAsString(respMap);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		logger.debug("push result:{}", result);
+		logger.debug("push ajax response:{}", result);
 		return result;
 	}
 
@@ -71,7 +69,8 @@ public class FormController {
 	 *           is not easy. may put this resource for each brower or new
 	 *           session. 2.the jquery in the active JSPs seems not worked.
 	 *           so,change to fresh method.
-	 * @see baseForm(...)
+	 * 
+	 * @deprecated @see baseForm(...) 
 	 */
 	@RequestMapping(value = "/ipv4AjaxTest", method = { RequestMethod.GET })
 	@ResponseBody

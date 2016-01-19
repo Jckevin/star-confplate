@@ -4,6 +4,8 @@
 <c:if test="${!(empty sessionScope.menutree)}">
 	<c:set var="tree" value="${sessionScope.menutree}" />
 </c:if>
+<c:set var="menu" value="${menu}" />
+<c:set var="node" value="${node}" />
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -21,6 +23,8 @@
 <link rel="stylesheet" href="<c:url value='/star-css/style.css'/>" />
 <link rel="stylesheet"
 	href="<c:url value='/star-css/skins/_all-skins.min.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/star-css/jquery.dataTables.min.css'/>" />
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -90,16 +94,36 @@
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
 					<c:forEach items="${menutree}" var="tree">
-						<li class="treeview"><a href="#"><i
-								class="${tree.treeNodePic}"></i> <span><fmt:message
-										key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
-							<ul class="treeview-menu">
-								<c:forEach items="${tree.subNodeList}" var="subTree">
-									<li><a class="${subTree.type}" href="${subTree.action}"><i
-											class="${subTree.pic}"></i> <fmt:message
-												key="${subTree.name}" bundle="${langRes}" /></a></li>
-								</c:forEach>
-							</ul></li>
+						<c:choose>
+							<c:when test="${tree.treeNodeName == menu}">
+								<li class="active treeview"><a href="#"><i
+										class="${tree.treeNodePic}"></i> <span><fmt:message
+												key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
+							</c:when>
+							<c:otherwise>
+								<li class="treeview"><a href="#"><i
+										class="${tree.treeNodePic}"></i> <span><fmt:message
+												key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
+							</c:otherwise>
+						</c:choose>
+
+						<ul class="treeview-menu">
+							<c:forEach items="${tree.subNodeList}" var="subTree">
+								<c:choose>
+									<c:when test="${subTree.name == node}">
+										<li class="active">
+									</c:when>
+									<c:otherwise>
+										<li>
+									</c:otherwise>
+								</c:choose>
+								<a class="${subTree.type}" href="${subTree.action}"><i
+									class="${subTree.pic}"></i> <fmt:message key="${subTree.name}"
+										bundle="${langRes}" /></a>
+								</li>
+							</c:forEach>
+						</ul>
+						</li>
 					</c:forEach>
 					<li><a href="pages/widgets.html"> <i
 							class="glyphicon glyphicon-th"></i> <span>Widgets</span> <small
@@ -126,22 +150,60 @@
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="glyphicon glyphicon-home"></i> <fmt:message
-								key="home" bundle="${langRes}" /></a></li>
-					<li id="nodeLoc" class="active"><fmt:message key="home"
+								key="${menu}" bundle="${langRes}" /></a></li>
+					<li class="active"><fmt:message key="${node}"
 							bundle="${langRes}" /></li>
 				</ol>
 			</section>
-
+			<!-- The area used for extra data post -->
+			<div>
+				<input type="text" id="nodeLoc" value="${node}"
+					style="display: none;" />
+			</div>
 			<!-- Main content -->
 			<section class="content">
-				<div class="box box-primary">
-					<div class="col-md-6 col-sm-8 col-xs-12">
-						<form id="actform" class="form-horizontal">
-							<div id="actformdiv" class="box-body">
-								<!-- here ajax produce actively -->
-							</div>
-							<!-- /.box-body -->
-						</form>
+				<div class="row">
+					<div class="col-xs-12">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">Hover Data Table</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<table id="userTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>terNum</th>
+										<th>terPass</th>
+										<th>terName</th>
+										<th>terPri</th>
+										<th>terType</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${insList}" var="ins">
+										<tr>
+											<td>${ins.number }</td>
+											<td>${ins.password }</td>
+											<td>${ins.name }</td>
+											<td>${ins.privilege }</td>
+											<td>${ins.type }</td>
+										</tr>
+									</c:forEach>
+
+								</tbody>
+								<tfoot>
+									<tr>
+										<th>Rendering engine</th>
+										<th>Browser</th>
+										<th>Platform(s)</th>
+										<th>Engine version</th>
+										<th>CSS grade</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -149,11 +211,11 @@
 		</div>
 		<footer class="main-footer">
 			<div class="pull-right hidden-xs">
-				<b>Version</b> 2.3.0
+				<b>Version</b> 1.0.0
 			</div>
 			<strong>Copyright &copy; 2014-2015 <a
-				href="http://starunion.com">
-				<fmt:message key="co.info" bundle="${langRes}" /></a>.
+				href="http://starunion.com"> <fmt:message key="co.info"
+						bundle="${langRes}" /></a>.
 			</strong> All rights reserved.
 		</footer>
 		<aside class="control-sidebar control-sidebar-dark"></aside>
@@ -165,76 +227,13 @@
 	<script type="text/javascript"
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
-
+	<script src="<c:url value='/star-js/jquery.dataTables.min.js'/>"></script>
 	<script type="text/javascript">
-    $(document)
-        .ready(
-            function() {
-              $(".ajaxNode")
-                  .click(
-                      function(e) {
-                        e.preventDefault();
-                        var obj = $(this);
-                        var act = obj.attr("href");
-                        $
-                            .ajax({
-                              url : act,
-                              type : "GET",
-                              contentType : "application/text;charset=utf-8",
-                              data : {
-                                "node" : act
-                              },
-                              dataType : "json",
-                              success : function(result, status, req) {
-                                $("#nodeLoc").html(result.node);
-                                $("#actform").attr("action","setipv4");
-                                var htmcont = "<br>";
-                                var subResult = result.insMap;
-                                $
-                                    .each(
-                                        subResult,
-                                        function(ky, vl) {
-                                          htmcont += "<div class=\"form-group\">"
-                                          htmcont += "<label class=\"col-xs-3 control-label\">";
-                                          htmcont += ky;
-                                          htmcont += "</label>";
-                                          htmcont += "<div class=\"col-xs-9\">";
-                                          htmcont += "<input type=\"text\" class=\"form-control\" value=\"";
-                                    htmcont += vl;
-                                    htmcont += "\">";
-                                          htmcont += "</div></div>";
-                                        });
-                                htmcont += "<div class=\"col-xs-3\"></div><div class=\"col-xs-9\"><button type=\"submit\" id=\"sss\" class=\"btn btn-primary pull-left\">";
-                                htmcont += result.submit;
-                                htmcont += "</button></div>";
-                                $("#actformdiv").html(htmcont);
-                                
-                              },
-                              error : function(req, status, reason) {
-                                alert("ajax error !");
-                              }
-                            })
-
-                        return false;
-                      })
-              $("#sss").click(function() {
-                alert("aha click!");
-                $.ajax({
-                  url : "setGen",
-                  type : "GET",
-                  contentType : "application/text;charset=utf-8",
-                  data : {
-                    'langChoose' : 'zh_CN'
-                  },
-                  dataType : "text",
-                  success : function(result, status, req) {
-                    if (result == "success") {
-                      window.location.reload();
-                    }
-                  }
-                })
-              })
-            });
+    $(document).ready(function() {
+      $(function() {
+        $("#userTable").DataTable();
+      });
+    });
   </script>
 </body>
 </html>

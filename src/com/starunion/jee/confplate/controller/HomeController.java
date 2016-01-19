@@ -25,35 +25,31 @@ public class HomeController {
 	@Autowired
 	LoginService loginServ;
 	@Autowired
-	HomeService homeServ;
-//	DaoUserSip daoUserSip;
-	
+	HomeService homeServ;	
 
 	@RequestMapping(value = "/home", method={RequestMethod.POST})
 	public String login2home(Model model,String loginname,String loginpasswd, HttpSession httpSession) {
 		
 		logger.debug("before get home parameters, recheck user info");
-		
 		int res = loginServ.judgeLoginUser(loginname, loginpasswd);
+		
 		if(res == 0){
 			httpSession.setAttribute("user", loginname);
 			List<MenuTreeNode> treeNodeList = new ArrayList<MenuTreeNode>();
 			treeNodeList = homeServ.getMenuTreeList();
-			for (MenuTreeNode node : treeNodeList) {
-				logger.debug("controller -> first level Node :{}", node.getTreeNodeName());
-				for (HtmlMenu hm : node.getSubNodeList()) {
-					logger.debug("subInfo : {}", hm.getName());
-					logger.debug("subInfo : {}", hm.getAction());
-				}
-			}
-			
-			model.addAttribute("mytree", treeNodeList);
+//			printTreeInfo(treeNodeList);
 			httpSession.setAttribute("menutree", treeNodeList);
-			
-		}
-		
-		
+		}		
 		return "home";
 	}
 
+	public void printTreeInfo(List<MenuTreeNode> list){
+		for (MenuTreeNode node : list) {
+			logger.debug("controller -> first level Node :{}", node.getTreeNodeName());
+			for (HtmlMenu hm : node.getSubNodeList()) {
+				logger.debug("Node {} 's subNode -> {} : {}", node.getTreeNodeName(),
+						hm.getName(),hm.getAction());
+			}
+		}
+	}
 }

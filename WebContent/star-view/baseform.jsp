@@ -193,7 +193,8 @@
 				<b>Version</b> 1.0.0
 			</div>
 			<strong>Copyright &copy; 2014-2015 <a
-				href="http://almsaeedstudio.com">Almsaeed Studio</a>.
+				href="http://starunion.com">
+				<fmt:message key="co.info" bundle="${langRes}" /></a>.
 			</strong> All rights reserved.
 		</footer>
 		<aside class="control-sidebar control-sidebar-dark"></aside>

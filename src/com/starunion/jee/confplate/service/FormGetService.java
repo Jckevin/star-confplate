@@ -36,7 +36,7 @@ public class FormGetService {
 		if(node.equals("ipv4")){
 			gcList = daoGenConf.getGenConf("conf_network");
 		}else{
-			logger.debug("general conf get!!!");
+			logger.debug("general VO conf get by sqlName : {}",node);
 			gcList = daoGenConf.getGenConf(node);
 		}
 		
