@@ -4,7 +4,8 @@
 <c:if test="${!(empty sessionScope.menutree)}">
 	<c:set var="tree" value="${sessionScope.menutree}" />
 </c:if>
-<c:set var="node1" value="${node}"/>
+<c:set var="menu" value="${menu}" />
+<c:set var="node" value="${node}" />
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -91,16 +92,36 @@
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
 					<c:forEach items="${menutree}" var="tree">
-						<li class="treeview"><a href="#"><i
-								class="${tree.treeNodePic}"></i> <span><fmt:message
-										key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
-							<ul class="treeview-menu">
-								<c:forEach items="${tree.subNodeList}" var="subTree">
-									<li><a class="${subTree.type}" href="${subTree.action}"><i
-											class="${subTree.pic}"></i> <fmt:message
-												key="${subTree.name}" bundle="${langRes}" /></a></li>
-								</c:forEach>
-							</ul></li>
+						<c:choose>
+							<c:when test="${tree.treeNodeName == menu}">
+								<li class="active treeview"><a href="#"><i
+										class="${tree.treeNodePic}"></i> <span><fmt:message
+												key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
+							</c:when>
+							<c:otherwise>
+								<li class="treeview"><a href="#"><i
+										class="${tree.treeNodePic}"></i> <span><fmt:message
+												key="${tree.treeNodeName}" bundle="${langRes}" /></span> </a>
+							</c:otherwise>
+						</c:choose>
+
+						<ul class="treeview-menu">
+							<c:forEach items="${tree.subNodeList}" var="subTree">
+								<c:choose>
+									<c:when test="${subTree.name == node}">
+										<li class="active">
+									</c:when>
+									<c:otherwise>
+										<li>
+									</c:otherwise>
+								</c:choose>
+								<a class="${subTree.type}" href="${subTree.action}"><i
+									class="${subTree.pic}"></i> <fmt:message key="${subTree.name}"
+										bundle="${langRes}" /></a>
+								</li>
+							</c:forEach>
+						</ul>
+						</li>
 					</c:forEach>
 					<li><a href="pages/widgets.html"> <i
 							class="glyphicon glyphicon-th"></i> <span>Widgets</span> <small
@@ -127,32 +148,38 @@
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="glyphicon glyphicon-home"></i> <fmt:message
-								key="home" bundle="${langRes}" /></a></li>
-					<li id="nodeLoc" class="active"><fmt:message key="${node1}"
+								key="${menu}" bundle="${langRes}" /></a></li>
+					<li class="active"><fmt:message key="${node}"
 							bundle="${langRes}" /></li>
 				</ol>
 			</section>
-
+			<!-- The area used for extra data post -->
+			<div>
+				<input type="text" id="nodeLoc" value="${node}" style="display:none;"/>
+			</div>
 			<!-- Main content -->
 			<section class="content">
 				<div class="box box-primary">
 					<div class="col-md-6 col-sm-8 col-xs-12">
-						<form id="actform" class="form-horizontal">
-							<div id="actformdiv" class="box-body">
+						<form id="actfrm" class="form-horizontal" action="baseActionUpdate">
+							<div class="box-body">
 								<!-- here ajax produce actively -->
 								<c:forEach items="${insList}" var="ins">
-								<div class="form-group">
-						            <label class="col-xs-3 control-label">
-						            <fmt:message key="${ins.name}" bundle="${langRes}" /></label>
-						            <div class="col-xs-9">
-						            <input type="text" class="form-control" value="${ins.value }"/>
-						            </div></div>
-					            </c:forEach>
-					            <div class="col-xs-3"></div>
-					            <div class="col-xs-9">
-					            <button type="submit" class="btn btn-primary pull-left">
-					            <fmt:message key="submit" bundle="${langRes}" />
-					            </button></div>                                         
+									<div class="form-group">
+										<label class="col-xs-3 control-label"> <fmt:message
+												key="${ins.name}" bundle="${langRes}" /></label>
+										<div class="col-xs-9">
+											<input type="text" name="${ins.name}" class="form-control"
+												value="${ins.value}" />
+										</div>
+									</div>
+								</c:forEach>
+								<div class="col-xs-3"></div>
+								<div class="col-xs-9">
+									<button type="submit" class="btn btn-primary pull-left">
+										<fmt:message key="submit" bundle="${langRes}" />
+									</button>
+								</div>
 							</div>
 							<!-- /.box-body -->
 						</form>
@@ -163,7 +190,7 @@
 		</div>
 		<footer class="main-footer">
 			<div class="pull-right hidden-xs">
-				<b>Version</b> 2.3.0
+				<b>Version</b> 1.0.0
 			</div>
 			<strong>Copyright &copy; 2014-2015 <a
 				href="http://almsaeedstudio.com">Almsaeed Studio</a>.
@@ -178,6 +205,46 @@
 	<script type="text/javascript"
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
+	<script type="text/javascript">
+    $(document).ready(function() {
+      $(".btn").click(function(e) {
+        e.preventDefault();
+        var dataPara = getFormJson();
+        var nodeLoc = $("#nodeLoc").val();
+        $.ajax({
+          url : "baseFormSubmit?nodeLoc="+nodeLoc,
+          type : "POST",
+          contentType : "application/json;charset=utf-8",
+          data : JSON.stringify(dataPara),
+          dataType : "json",
+          success : function(result, status, req) {
+            alert(result.node);
+          },
+          error : function(req, status, reason) {
+            alert("ajax error !");
+          }
+        })
 
+        return false;
+      })
+
+      function getFormJson() {
+        var o = {};
+        var a = $("#actfrm").serializeArray();
+        $.each(a, function() {
+          if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+              o[this.name] = [ o[this.name] ];
+            }
+            o[this.name].push(this.value || '');
+          } else {
+            o[this.name] = this.value || '';
+          }
+        });
+
+        return o;
+      }
+    });
+  </script>
 </body>
 </html>

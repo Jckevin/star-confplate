@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,8 @@ import com.starunion.jee.confplate.po.GeneralConf;
 import com.starunion.jee.confplate.po.GeneralVo;
 
 @Service
-public class FormService {
-	
+public class FormGetService {
+	private static final Logger logger = LoggerFactory.getLogger(FormGetService.class);
 	@Autowired
 	DaoGeneralConf daoGenConf;
 	
@@ -28,10 +30,16 @@ public class FormService {
 		return insideMap;
 	}
 	
-	public List<GeneralVo> getNetworkList(){
+	public List<GeneralVo> getGenVoList(String node){
 		List<GeneralVo> voList = new ArrayList<GeneralVo>();
 		List<GeneralConf> gcList = new ArrayList<GeneralConf>();
-		gcList = daoGenConf.getNetworkConf();
+		if(node.equals("ipv4")){
+			gcList = daoGenConf.getGenConf("conf_network");
+		}else{
+			logger.debug("general conf get!!!");
+			gcList = daoGenConf.getGenConf(node);
+		}
+		
 		for(GeneralConf gc : gcList){
 			GeneralVo vo = new GeneralVo();
 			vo.setName(gc.getName());

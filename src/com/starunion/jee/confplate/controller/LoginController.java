@@ -43,7 +43,7 @@ public class LoginController {
 		request.getSession().setAttribute("langSet", langChoose);
 		
 		//initial Resource Bundle for ajax response.
-		lanResServ.initResBundle(langChoose);
+//		lanResServ.initResBundle(langChoose);
 		
 		return "success";
 	}
@@ -76,12 +76,12 @@ public class LoginController {
 	@RequestMapping(value = "/loginCheck", method={RequestMethod.POST})
 	@ResponseBody
 	public String logincheck(@SuppressWarnings("rawtypes") @RequestBody Map map,HttpServletRequest request) {
-		if(lanResServ.resBundle == null){
-			logger.debug("language was not special configured,set default to zh_CN");
-			lanResServ.initResBundle("zh_CN");
-		}else{
-			logger.debug("language was special configured,use config params.");	
-		}
+//		if(lanResServ.resBundle == null){
+//			logger.debug("language was not special configured,set default to zh_CN");
+//			lanResServ.initResBundle("zh_CN");
+//		}else{
+//			logger.debug("language was special configured,use config params.");	
+//		}
 		
 		String checkRes = null;
 		logger.debug("login check.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
