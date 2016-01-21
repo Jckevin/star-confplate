@@ -4,6 +4,10 @@
 <c:if test="${!(empty sessionScope.menutree)}">
 	<c:set var="tree" value="${sessionScope.menutree}" />
 </c:if>
+<c:set var="lang" value="zh_CN" />
+<c:if test="${!(empty sessionScope.langSet)}">
+	<c:set var="lang" value="${sessionScope.langSet}" />
+</c:if>
 <c:set var="menu" value="${menu}" />
 <c:set var="node" value="${node}" />
 <!DOCTYPE html>
@@ -164,45 +168,45 @@
 			<section class="content">
 				<div class="row">
 					<div class="col-xs-12">
-					<div class="box box-primary">
-						<div class="box-header">
-							<h3 class="box-title">Hover Data Table</h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<table id="userTable" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>terNum</th>
-										<th>terPass</th>
-										<th>terName</th>
-										<th>terPri</th>
-										<th>terType</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${insList}" var="ins">
+						<div class="box box-primary">
+							<div class="box-header">
+								<h3 class="box-title">Hover Data Table</h3>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table id="userTable" class="table table-bordered table-hover">
+									<thead>
 										<tr>
-											<td>${ins.number }</td>
-											<td>${ins.password }</td>
-											<td>${ins.name }</td>
-											<td>${ins.privilege }</td>
-											<td>${ins.type }</td>
+											<th>terNum</th>
+											<th>terPass</th>
+											<th>terName</th>
+											<th>terPri</th>
+											<th>terType</th>
 										</tr>
-									</c:forEach>
+									</thead>
+									<tbody>
+										<c:forEach items="${insList}" var="ins">
+											<tr>
+												<td>${ins.number }</td>
+												<td>${ins.password }</td>
+												<td>${ins.name }</td>
+												<td>${ins.privilege }</td>
+												<td>${ins.type }</td>
+											</tr>
+										</c:forEach>
 
-								</tbody>
-								<tfoot>
-									<tr>
-										<th>Rendering engine</th>
-										<th>Browser</th>
-										<th>Platform(s)</th>
-										<th>Engine version</th>
-										<th>CSS grade</th>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th>Rendering engine</th>
+											<th>Browser</th>
+											<th>Platform(s)</th>
+											<th>Engine version</th>
+											<th>CSS grade</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -219,6 +223,8 @@
 			</strong> All rights reserved.
 		</footer>
 		<aside class="control-sidebar control-sidebar-dark"></aside>
+		<!-- here put some covered parameters -->
+		<input id="tableLang" style="display: none" value="${lang }" />
 	</div>
 	<!-- /container -->
 
@@ -228,11 +234,20 @@
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
 	<script src="<c:url value='/star-js/jquery.dataTables.min.js'/>"></script>
+	<script src="<c:url value='/star-js/dataTables.bootstrap.min.js'/>"></script>
 	<script type="text/javascript">
     $(document).ready(function() {
-      $(function() {
-        $("#userTable").DataTable();
-      });
+      var lan = $("#tableLang").val();
+      if (lan == 'zh_CN') {
+        $('#userTable').DataTable({
+          "language" : {
+            "url" : "/star-confplate/star-css/dataTableJson/Chinese.json"
+          }
+        });
+      }else{
+        $('#userTable').DataTable();
+      }
+
     });
   </script>
 </body>
