@@ -170,7 +170,20 @@
 					<div class="col-xs-12">
 						<div class="box box-primary">
 							<div class="box-header">
-								<h3 class="box-title">Hover Data Table</h3>
+								<div class="btn-group" data-toggle="buttons">
+									<button type="button" class="btn btn-primary btn-lg"
+										style="text-shadow: black 5px 3px 3px;">
+										<span class="glyphicon glyphicon-plus"></span> User
+									</button>
+									<button type="button" class="btn btn-primary btn-lg"
+										style="text-shadow: black 5px 3px 3px;">
+										<span class="glyphicon glyphicon-minus"></span> User
+									</button>
+									<button type="button" class="btn btn-primary btn-lg"
+										style="text-shadow: black 5px 3px 3px;">
+										<span class="glyphicon glyphicon-user"></span> User
+									</button>
+								</div>
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
@@ -244,7 +257,7 @@
             "url" : "/star-confplate/star-css/dataTableJson/Chinese.json"
           }
         });
-      }else{
+      } else {
         $('#userTable').DataTable();
       }
 
