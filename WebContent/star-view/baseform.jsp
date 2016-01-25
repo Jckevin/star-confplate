@@ -219,7 +219,7 @@
           data : JSON.stringify(dataPara),
           dataType : "json",
           success : function(result, status, req) {
-            alert(result.node);
+            alert(result.result);
           },
           error : function(req, status, reason) {
             alert("ajax error !");

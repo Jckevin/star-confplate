@@ -26,7 +26,10 @@ public class TableController {
 	public String baseForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node) {
 		model.addAttribute("node", node);
 		model.addAttribute("menu", menu);
-		model.addAttribute("insList", tableGetServ.getTableList(node));
+//		model.addAttribute("insList", tableGetServ.getTableList(node));
+		model.addAttribute("funcList",tableGetServ.getTableFuncList(node));
+		model.addAttribute("thList",tableGetServ.getTableThList(node));
+		model.addAttribute("tbList",tableGetServ.getTableBodyList(node));
 		return "basetable";
 	}
 

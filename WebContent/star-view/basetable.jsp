@@ -171,18 +171,11 @@
 						<div class="box box-primary">
 							<div class="box-header">
 								<div class="btn-group" data-toggle="buttons">
-									<button type="button" class="btn btn-primary btn-lg"
-										style="text-shadow: black 5px 3px 3px;">
-										<span class="glyphicon glyphicon-plus"></span> User
-									</button>
-									<button type="button" class="btn btn-primary btn-lg"
-										style="text-shadow: black 5px 3px 3px;">
-										<span class="glyphicon glyphicon-minus"></span> User
-									</button>
-									<button type="button" class="btn btn-primary btn-lg"
-										style="text-shadow: black 5px 3px 3px;">
-										<span class="glyphicon glyphicon-user"></span> User
-									</button>
+								    <c:forEach items="${funcList}" var="func">
+										<a href="${func.action }" class="btn btn-default btn-lg btn4url">
+										<span class="${func.pic }"><fmt:message key="${func.name }" bundle="${langRes}" /></span>
+										</a>
+									</c:forEach>
 								</div>
 							</div>
 							<!-- /.box-header -->
@@ -190,32 +183,26 @@
 								<table id="userTable" class="table table-bordered table-hover">
 									<thead>
 										<tr>
-											<th>terNum</th>
-											<th>terPass</th>
-											<th>terName</th>
-											<th>terPri</th>
-											<th>terType</th>
+										<c:forEach items="${thList}" var="tblth">
+											<th><fmt:message key="${tblth }" bundle="${langRes}" /></th>
+										</c:forEach>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${insList}" var="ins">
+										<c:forEach items="${tbList}" var="tblbd">
 											<tr>
-												<td>${ins.number }</td>
-												<td>${ins.password }</td>
-												<td>${ins.name }</td>
-												<td>${ins.privilege }</td>
-												<td>${ins.type }</td>
+												<c:forEach items="${tblbd }" var="tbbd">
+													<td>${tbbd }</td>
+												</c:forEach>
 											</tr>
 										</c:forEach>
 
 									</tbody>
 									<tfoot>
 										<tr>
-											<th>Rendering engine</th>
-											<th>Browser</th>
-											<th>Platform(s)</th>
-											<th>Engine version</th>
-											<th>CSS grade</th>
+											<c:forEach items="${thList}" var="tblth">
+												<th><fmt:message key="${tblth }" bundle="${langRes}" /></th>
+											</c:forEach>
 										</tr>
 									</tfoot>
 								</table>
@@ -262,6 +249,12 @@
       }
 
     });
+    $(".btn4url").click(function() {
+        alert("aha click!");
+        var url = this.href;
+        alert(url);
+        
+      })
   </script>
 </body>
 </html>
