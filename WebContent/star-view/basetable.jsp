@@ -250,10 +250,7 @@
 
     });
     $(".btn4url").click(function() {
-        alert("aha click!");
-        var url = this.href;
-        alert(url);
-        
+        location.href=this.href;
       })
   </script>
 </body>

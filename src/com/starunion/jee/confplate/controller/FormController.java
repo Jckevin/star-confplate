@@ -47,7 +47,7 @@ public class FormController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> respMap = new HashMap<String, Object>();
 		if(res == 0){
-			respMap.put("result", "success");	
+			respMap.put("result", "success");
 		}
 
 		try {
