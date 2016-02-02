@@ -168,8 +168,9 @@
 							<form id="actfrm" class="form-horizontal"
 								action="baseActionUpdate">
 								<div class="box-body">
-									<!-- here ajax produce actively -->
+									<!-- here JSTL produce actively -->
 									<c:forEach items="${insList}" var="ins">
+
 										<div class="form-group">
 											<label class="col-xs-5 control-label"> <fmt:message
 													key="${ins.name}" bundle="${langRes}" /></label>
@@ -186,18 +187,30 @@
 													</c:when>
 													<c:when test="${ins.type == 'radio'}">
 														<div class="radio">
-															<label> <input type="radio" name="optionsRadios"
-																id="optionsRadios1" value="option1" checked> 选项
-																1
-															</label>
-															<label> <input type="radio" name="optionsRadios"
-																id="optionsRadios2" value="option2"> 选项 2 -
-																选择它将会取消选择选项 1
-															</label>
+															<c:forEach items="${ins.compView}" var="insmap">
+																<c:if test="${insmap.key=='terPass'}">
+																	<c:forEach items="${insmap.value}" var="inslist">
+																		<c:if test="${inslist.name=='sameTerNum' }">
+																		<label> <input type="radio"
+																			name="optionsRadios" id="${inslist.name}"
+																			value="${inslist.value}" checked> <c:out
+																				value="${inslist.name}" />
+																		</label>
+																		</c:if>
+																		<c:if test="${inslist.name=='staticStr'}">
+																		<label> <input type="radio"
+																			name="optionsRadios" id="${inslist.name}"
+																			value="${inslist.value}"> <c:out
+																				value="${inslist.name}" />
+																		</label>
+																		</c:if>
+																	</c:forEach>
+																</c:if>
+															</c:forEach>
 														</div>
 													</c:when>
 													<c:otherwise>
-													<input type="text" name="${ins.name}" class="form-control"
+														<input type="text" name="${ins.name}" class="form-control"
 															value="${ins.type}" />
 													</c:otherwise>
 												</c:choose>
@@ -238,45 +251,45 @@
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
 	<script type="text/javascript">
-    $(document).ready(function() {
-      $(".btn").click(function(e) {
-        e.preventDefault();
-        var dataPara = getFormJson();
-        var nodeLoc = $("#nodeLoc").val();
-        $.ajax({
-          url : "baseFormSubmit?nodeLoc=" + nodeLoc,
-          type : "POST",
-          contentType : "application/json;charset=utf-8",
-          data : JSON.stringify(dataPara),
-          dataType : "json",
-          success : function(result, status, req) {
-            alert(result.result);
-          },
-          error : function(req, status, reason) {
-            alert("ajax error !");
-          }
-        })
+		$(document).ready(function() {
+			$(".btn").click(function(e) {
+				e.preventDefault();
+				var dataPara = getFormJson();
+				var nodeLoc = $("#nodeLoc").val();
+				$.ajax({
+					url : "baseFormSubmit?nodeLoc=" + nodeLoc,
+					type : "POST",
+					contentType : "application/json;charset=utf-8",
+					data : JSON.stringify(dataPara),
+					dataType : "json",
+					success : function(result, status, req) {
+						alert(result.result);
+					},
+					error : function(req, status, reason) {
+						alert("ajax error !");
+					}
+				})
 
-        return false;
-      })
+				return false;
+			})
 
-      function getFormJson() {
-        var o = {};
-        var a = $("#actfrm").serializeArray();
-        $.each(a, function() {
-          if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-              o[this.name] = [ o[this.name] ];
-            }
-            o[this.name].push(this.value || '');
-          } else {
-            o[this.name] = this.value || '';
-          }
-        });
+			function getFormJson() {
+				var o = {};
+				var a = $("#actfrm").serializeArray();
+				$.each(a, function() {
+					if (o[this.name] !== undefined) {
+						if (!o[this.name].push) {
+							o[this.name] = [ o[this.name] ];
+						}
+						o[this.name].push(this.value || '');
+					} else {
+						o[this.name] = this.value || '';
+					}
+				});
 
-        return o;
-      }
-    });
-  </script>
+				return o;
+			}
+		});
+	</script>
 </body>
 </html>

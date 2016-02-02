@@ -2,7 +2,11 @@ package com.starunion.jee.confplate.po;
 
 import java.util.List;
 
-public class MenuTreeNode {
+public class MenuTreeNode implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer treeNodeId;
 	private String treeNodeName;
 	private String treeNodeUrl;

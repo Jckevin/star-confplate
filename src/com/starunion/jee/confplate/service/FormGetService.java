@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.starunion.jee.confplate.dao.DaoGeneralConf;
 import com.starunion.jee.confplate.po.GeneralConf;
+import com.starunion.jee.confplate.po.GeneralElementParam;
 import com.starunion.jee.confplate.po.GeneralSubConf;
 import com.starunion.jee.confplate.po.GeneralVo;
 
@@ -52,6 +53,9 @@ public class FormGetService {
 	
 	public List<GeneralVo> getSubGenVoList(String node,String table){
 		List<GeneralVo> voList = new ArrayList<GeneralVo>();
+//		Map<String, HashMap<String, String>> compView = new HashMap<String,HashMap<String,String>>();
+		Map<String, ArrayList<GeneralElementParam>> compView = new HashMap<String,ArrayList<GeneralElementParam>>();
+		
 		List<GeneralSubConf> gcList = new ArrayList<GeneralSubConf>();
 		logger.debug("general SUB VO conf get by sqlName : {}",table);
 		gcList = daoGenConf.getSubGenConf(node,table);
@@ -62,15 +66,25 @@ public class FormGetService {
 			vo.setValue(gc.getValue());
 			vo.setType(gc.getType());
 			if(gc.getType().equals("radio")){
-				Map<String, HashMap<String, String>> compView = new HashMap<String,HashMap<String,String>>();
-				HashMap<String,String> interval = new HashMap<String,String>();
+				ArrayList<GeneralElementParam> interval = new ArrayList<GeneralElementParam>();
 				String[] fArray = gc.getValue().split("\\|");
 				for(String s : fArray){
+					GeneralElementParam ge = new GeneralElementParam();
 					String[] sArray = s.split(":");
-					interval.put(sArray[0],sArray[1]);
+					ge.setName(sArray[0]);
+					ge.setValue(sArray[1]);
+					interval.add(ge);
 				}
 				compView.put(gc.getName(), interval);
 				vo.setCompView(compView);
+//				HashMap<String,String> interval = new HashMap<String,String>();
+//				String[] fArray = gc.getValue().split("\\|");
+//				for(String s : fArray){
+//					String[] sArray = s.split(":");
+//					interval.put(sArray[0],sArray[1]);
+//				}
+//				compView.put(gc.getName(), interval);
+//				vo.setCompView(compView);
 			}
 			voList.add(vo);
 		}

@@ -1,5 +1,6 @@
 package com.starunion.jee.confplate.po;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,8 @@ public class GeneralVo {
 	private String name;
 	private String value;
 	private String type;
-	private Map<String, HashMap<String, String>> compView = new HashMap<String,HashMap<String,String>>();
+//	private Map<String, HashMap<String, String>> compView = new HashMap<String,HashMap<String,String>>();
+	private Map<String, ArrayList<GeneralElementParam>> compView = new HashMap<String,ArrayList<GeneralElementParam>>();
 	
 	public GeneralVo(){
 		
@@ -37,10 +39,16 @@ public class GeneralVo {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Map<String, HashMap<String, String>> getCompView() {
+	public Map<String, ArrayList<GeneralElementParam>> getCompView() {
 		return compView;
 	}
-	public void setCompView(Map<String, HashMap<String, String>> compView) {
+	public void setCompView(Map<String, ArrayList<GeneralElementParam>> compView) {
 		this.compView = compView;
 	}
+//	public Map<String, HashMap<String, String>> getCompView() {
+//		return compView;
+//	}
+//	public void setCompView(Map<String, HashMap<String, String>> compView) {
+//		this.compView = compView;
+//	}
 }

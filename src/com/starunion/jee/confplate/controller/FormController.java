@@ -65,7 +65,8 @@ public class FormController {
 		model.addAttribute("node", node);
 		model.addAttribute("menu", menu);
 		model.addAttribute("insList", formGetServ.getSubGenVoList(node,table));
-		return "form_novalue";
+		return node;
+//		return "form_novalue";
 	}
 	
 	/**
