@@ -8,7 +8,13 @@ public class GeneralSubConf {
 	private String node;
 	private String name;
 	private String type;
+	private String value;
 	private Integer status;
+	
+	public GeneralSubConf(){
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -38,6 +44,12 @@ public class GeneralSubConf {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
 	}
 	
 }

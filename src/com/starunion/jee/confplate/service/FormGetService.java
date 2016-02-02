@@ -59,12 +59,20 @@ public class FormGetService {
 		for(GeneralSubConf gc : gcList){
 			GeneralVo vo = new GeneralVo();
 			vo.setName(gc.getName());
-			vo.setValue(gc.getType());
-			GeneralVo vo1 = new GeneralVo();
-			vo1.setName(gc.getName());
-			vo1.setValue(gc.getType());
+			vo.setValue(gc.getValue());
+			vo.setType(gc.getType());
+			if(gc.getType().equals("radio")){
+				Map<String, HashMap<String, String>> compView = new HashMap<String,HashMap<String,String>>();
+				HashMap<String,String> interval = new HashMap<String,String>();
+				String[] fArray = gc.getValue().split("\\|");
+				for(String s : fArray){
+					String[] sArray = s.split(":");
+					interval.put(sArray[0],sArray[1]);
+				}
+				compView.put(gc.getName(), interval);
+				vo.setCompView(compView);
+			}
 			voList.add(vo);
-			voList.add(vo1);
 		}
 		return voList;
 	}
