@@ -59,6 +59,15 @@ public class FormController {
 		return result;
 	}
 
+	@RequestMapping(value = "/subFormAction", method = { RequestMethod.GET })
+	public String subForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node,
+			@RequestParam("tb") String table) {
+		model.addAttribute("node", node);
+		model.addAttribute("menu", menu);
+		model.addAttribute("insList", formGetServ.getSubGenVoList(node,table));
+		return "baseform";
+	}
+	
 	/**
 	 * @author Lings
 	 * @return json format data

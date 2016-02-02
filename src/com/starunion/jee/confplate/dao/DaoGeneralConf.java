@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.starunion.jee.confplate.po.GeneralConf;
+import com.starunion.jee.confplate.po.GeneralSubConf;
 
 @Component
 public class DaoGeneralConf extends DbUtilsTemplate {
@@ -41,6 +42,18 @@ public class DaoGeneralConf extends DbUtilsTemplate {
 		logger.debug("update General Conf with sql : \n{}",sql.toString());
 		int res = super.update(sql.toString());
 		return res;
-
+	}
+	/** this method used for table travelled jsps.
+	 *  like userManage->addUser */
+	public List<GeneralSubConf> getSubGenConf(String qName,String sqlName) {
+		List<GeneralSubConf> list = new ArrayList<GeneralSubConf>();
+		StringBuffer strBuff = new StringBuffer();
+		strBuff.append("select * from ");
+		strBuff.append(sqlName);
+		strBuff.append(" where node = \"");
+		strBuff.append(qName);
+		strBuff.append("\" order by id");
+		list = super.find(GeneralSubConf.class, strBuff.toString());
+		return list;
 	}
 }

@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="<c:url value='/star-css/style.css'/>" />
 <link rel="stylesheet"
 	href="<c:url value='/star-css/skins/_all-skins.min.css'/>">
+	<style type="text/css">
+</style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -159,6 +161,7 @@
 			</div>
 			<!-- Main content -->
 			<section class="content">
+			<div class="row">
 				<div class="box box-primary">
 					<div class="col-md-6 col-sm-8 col-xs-12">
 						<form id="actfrm" class="form-horizontal" action="baseActionUpdate">
@@ -185,6 +188,7 @@
 						</form>
 					</div>
 				</div>
+				</div>
 			</section>
 
 		</div>
@@ -197,7 +201,7 @@
 				<fmt:message key="co.info" bundle="${langRes}" /></a>.
 			</strong> All rights reserved.
 		</footer>
-		<aside class="control-sidebar control-sidebar-dark"></aside>
+		<div class="control-sidebar-bg"></div>
 	</div>
 	<!-- /container -->
 
