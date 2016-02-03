@@ -39,14 +39,15 @@ public class FormController {
 
 	@RequestMapping(value = "/baseFormSubmit", method = { RequestMethod.POST })
 	@ResponseBody
-	public String baseFormSubmit(@SuppressWarnings("rawtypes") @RequestBody Map map,@RequestParam("nodeLoc") String nodeLoc) {
+	public String baseFormSubmit(@SuppressWarnings("rawtypes") @RequestBody Map map,
+			@RequestParam("nodeLoc") String nodeLoc) {
 		String result = null;
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> revMap = (HashMap<String, String>) map;
 		int res = formSubmitServ.submitGenVoList(nodeLoc, revMap);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> respMap = new HashMap<String, Object>();
-		if(res == 0){
+		if (res == 0) {
 			respMap.put("result", "success");
 		}
 
@@ -61,14 +62,45 @@ public class FormController {
 
 	@RequestMapping(value = "/subFormAction", method = { RequestMethod.GET })
 	public String subForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node,
-			@RequestParam("tb") String table) {
+			@RequestParam("snode") String snode) {
 		model.addAttribute("node", node);
 		model.addAttribute("menu", menu);
-		model.addAttribute("insList", formGetServ.getSubGenVoList(node,table));
-		return node;
-//		return "form_novalue";
+		model.addAttribute("snode", snode);
+		model.addAttribute("insList", formGetServ.getSubGenVoList(snode));
+		return snode;
+		// return "form_novalue";
 	}
-	
+
+	@RequestMapping(value = "/subFormSubmit", method = { RequestMethod.POST })
+	@ResponseBody
+	public String subFormSubmit(@SuppressWarnings("rawtypes") @RequestBody Map map,
+			@RequestParam("menuLoc") String menuLoc, @RequestParam("nodeLoc") String nodeLoc,
+			@RequestParam("funcLoc") String funcLoc) {
+		String result = null;
+		int res = 0;
+		@SuppressWarnings("unchecked")
+		HashMap<String, String> revMap = (HashMap<String, String>) map;
+		if(funcLoc.equals("addExten")){
+			res = formSubmitServ.submitUserInfo("sip_users",revMap);
+		}
+		logger.debug("service return {}",res);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> respMap = new HashMap<String, Object>();
+		if (res == 1) {
+			respMap.put("result", "success");
+		} else if(res == 0){
+			respMap.put("result", "inuse");
+		}
+
+		try {
+			result = mapper.writeValueAsString(respMap);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		logger.debug("push ajax response:{}", result);
+		return result;
+	}
+
 	/**
 	 * @author Lings
 	 * @return json format data
@@ -80,7 +112,7 @@ public class FormController {
 	 *           session. 2.the jquery in the active JSPs seems not worked.
 	 *           so,change to fresh method.
 	 * 
-	 * @deprecated @see baseForm(...) 
+	 * @deprecated @see baseForm(...)
 	 */
 	@RequestMapping(value = "/ipv4AjaxTest", method = { RequestMethod.GET })
 	@ResponseBody

@@ -51,14 +51,20 @@ public class FormGetService {
 		return voList;
 	}
 	
-	public List<GeneralVo> getSubGenVoList(String node,String table){
+	/**
+	 * @desc this method used to genrate actived subForm jsp view object,but 
+	 *       it seems the structure is much complex for jsp and jstl...
+	 * @author Lingsong
+	 * @deprecated 
+	 * */
+	public List<GeneralVo> getSubGenVoList(String node){
 		List<GeneralVo> voList = new ArrayList<GeneralVo>();
 //		Map<String, HashMap<String, String>> compView = new HashMap<String,HashMap<String,String>>();
 		Map<String, ArrayList<GeneralElementParam>> compView = new HashMap<String,ArrayList<GeneralElementParam>>();
 		
 		List<GeneralSubConf> gcList = new ArrayList<GeneralSubConf>();
-		logger.debug("general SUB VO conf get by sqlName : {}",table);
-		gcList = daoGenConf.getSubGenConf(node,table);
+		logger.debug("general SUB VO conf get by sqlName param filter: {}",node);
+		gcList = daoGenConf.getSubGenConf(node,"html_jsp_param");
 		
 		for(GeneralSubConf gc : gcList){
 			GeneralVo vo = new GeneralVo();

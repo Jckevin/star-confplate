@@ -153,17 +153,24 @@
 								key="${menu}" bundle="${langRes}" /></a></li>
 					<li class="active"><fmt:message key="${node}"
 							bundle="${langRes}" /></li>
+					<li class="active"><fmt:message key="${snode}"
+							bundle="${langRes}" /></li>
 				</ol>
 			</section>
 			<!-- The area used for extra data post -->
 			<div>
+				<input type="text" id="menuLoc" value="${menu}"
+					style="display: none;" />
 				<input type="text" id="nodeLoc" value="${node}"
+					style="display: none;" />
+				<input type="text" id="funcLoc" value="${snode}"
 					style="display: none;" />
 			</div>
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
 					<div class="box box-primary">
+					<div class="box-header" style="display:none"><fmt:message key="yes" bundle="${langRes}" /></div>
 						<div class="col-md-7 col-sm-10 col-xs-12">
 							<form id="actfrm" class="form-horizontal"
 								action="baseActionUpdate">
@@ -173,21 +180,79 @@
 										<label class="col-xs-5 control-label"> <fmt:message
 												key="terNum" bundle="${langRes}" /></label>
 										<div class="col-xs-7">
-											<input type="text" name="terNum" class="form-control" value="" />
+											<input type="text" name="terNum" class="form-control"
+												value="" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-5 control-label"> <fmt:message
+												key="terPassMode" bundle="${langRes}" /></label>
+										<div class="col-xs-7">
+											<label> <input type="radio" name="passRd" value="0"
+												checked> <fmt:message key="terSamePass"
+													bundle="${langRes}" />
+											</label> <label> <input type="radio" name="passRd" value="1">
+												<fmt:message key="terStaticPass" bundle="${langRes}" />
+											</label>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-xs-5 control-label"> <fmt:message
 												key="terPass" bundle="${langRes}" /></label>
 										<div class="col-xs-7">
-											<label> <input type="radio" name="samePass" value="0" checked>
-											<fmt:message key="terSamePass" bundle="${langRes}" />
-											</label>
-											<label> <input type="radio" name="staticPass" value="1">
-											<fmt:message key="terStaticPass" bundle="${langRes}" />
+											<input type="text" name="terPass" class="form-control"
+												value="" disabled />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-5 control-label"> <fmt:message
+												key="terName" bundle="${langRes}" /></label>
+										<div class="col-xs-7">
+											<input type="text" name="terName" class="form-control"
+												value="" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-5 control-label"> <fmt:message
+												key="terDepartment" bundle="${langRes}" /></label>
+										<div class="col-xs-7">
+											<select name="terDepartment" class="form-control">
+												<option value="default">default</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-5 control-label"> <fmt:message
+												key="terPri" bundle="${langRes}" /></label>
+										<div class="col-xs-7">
+											<select name="terPri" class="form-control">
+												<option value="default">default</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-5 control-label"> <fmt:message
+												key="terType" bundle="${langRes}" /></label>
+										<div class="col-xs-7">
+											<select name="terType" class="form-control">
+												<option value="0">调度终端</option>
+												<option value="1">广播终端</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-5 control-label"> <fmt:message
+												key="terRecord" bundle="${langRes}" /></label>
+										<div class="col-xs-7">
+											<label style="margin-right:10px;"> <input type="radio" name="recRd" value="0">
+												<fmt:message key="yes" bundle="${langRes}" />
+											</label> <label> <input type="radio" name="recRd" value="1"
+												checked> <fmt:message key="no" bundle="${langRes}" />
 											</label>
 										</div>
 									</div>
+
+									<!-- Form submit button -->
 									<div class="col-xs-5"></div>
 									<div class="col-xs-7">
 										<button type="submit" class="btn btn-primary pull-left">
@@ -222,45 +287,62 @@
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".btn").click(function(e) {
-				e.preventDefault();
-				var dataPara = getFormJson();
-				var nodeLoc = $("#nodeLoc").val();
-				$.ajax({
-					url : "baseFormSubmit?nodeLoc=" + nodeLoc,
-					type : "POST",
-					contentType : "application/json;charset=utf-8",
-					data : JSON.stringify(dataPara),
-					dataType : "json",
-					success : function(result, status, req) {
-						alert(result.result);
-					},
-					error : function(req, status, reason) {
-						alert("ajax error !");
-					}
-				})
+    $(document).ready(function() {
+      $(".btn").click(function(e) {
+        e.preventDefault();
+        var dataPara = getFormJson();
+        var menuLoc = $("#menuLoc").val();
+        var nodeLoc = $("#nodeLoc").val();
+        var funcLoc = $("#funcLoc").val();
+        $.ajax({
+          url : "subFormSubmit?menuLoc="+menuLoc+"&nodeLoc="+nodeLoc+"&funcLoc="+funcLoc,
+          type : "POST",
+          contentType : "application/json;charset=utf-8",
+          data : JSON.stringify(dataPara),
+          dataType : "json",
+          success : function(result, status, req) {
+            if(result.result == "success"){
+              $(".box-header").css("display", "none");
+              location.href="baseTableAction?menu=manageExten&node=sipExten";
+            }else{
+              $(".box-header").css("display", "block");
+            };
+          },
+          error : function(req, status, reason) {
+            alert("ajax error !");
+          }
+        })
 
-				return false;
-			})
+        return false;
+      })
 
-			function getFormJson() {
-				var o = {};
-				var a = $("#actfrm").serializeArray();
-				$.each(a, function() {
-					if (o[this.name] !== undefined) {
-						if (!o[this.name].push) {
-							o[this.name] = [ o[this.name] ];
-						}
-						o[this.name].push(this.value || '');
-					} else {
-						o[this.name] = this.value || '';
-					}
-				});
+      function getFormJson() {
+        var o = {};
+        var a = $("#actfrm").serializeArray();
+        $.each(a, function() {
+          if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+              o[this.name] = [ o[this.name] ];
+            }
+            o[this.name].push(this.value || '');
+          } else {
+            o[this.name] = this.value || '';
+          }
+        });
 
-				return o;
-			}
-		});
-	</script>
+        return o;
+      }
+
+      $('input[name="passRd"]').click(function() {
+        var rd = $('input[type="radio"]:checked').val();
+        if (rd == 1) {
+          $('input[name="terPass"]').attr("disabled", false);
+        } else {
+          $('input[name="terPass"]').attr("disabled", true);
+        }
+      })
+
+    });
+  </script>
 </body>
 </html>
