@@ -82,6 +82,21 @@ public class DaoUserSip extends DbUtilsTemplate {
 			logger.debug("after convert codec :{}:{}",cName,cName1);
 			//\xC2\x8B\xC3\xA8\xC2\xAF...after convert codec :???è??é??è??
 			//\xC2\x8B\xC3\xA8\xC2\xAF...
+//			mysql> show variables like '%char%';
+//			+--------------------------+----------------------------+
+//			| Variable_name            | Value                      |
+//			+--------------------------+----------------------------+
+//			| character_set_client     | utf8                       |
+//			| character_set_connection | utf8                       |
+//			| character_set_database   | latin1                     |
+//			| character_set_filesystem | binary                     |
+//			| character_set_results    | utf8                       |
+//			| character_set_server     | latin1                     |
+//			| character_set_system     | utf8                       |
+//			| character_sets_dir       | /usr/share/mysql/charsets/ |
+//			+--------------------------+----------------------------+
+//			8 rows in set (0.01 sec)
+
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +105,7 @@ public class DaoUserSip extends DbUtilsTemplate {
 		sql.append("values(\"");
 		sql.append(num).append("\",\"");
 		sql.append(pwd).append("\",\"");
-		sql.append(cName).append("\",\"");
+		sql.append(name).append("\",\"");
 		sql.append(tDep).append("\",\"");
 		sql.append(tPri).append("\",\"");
 		sql.append(type).append("\",");

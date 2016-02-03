@@ -1,5 +1,6 @@
 package com.starunion.jee.confplate.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +66,24 @@ public class TableGetService {
 			ArrayList<String> al = new ArrayList<String>();
 			al.add(us.getNumber());
 			al.add(us.getPassword());
-			al.add(us.getName());
+			String ss = us.getName();
+			logger.debug("get name = {}",us.getName());
+			if(ss != null){
+				try {
+					String ns = new String(ss.getBytes("iso-8859-1"),"utf-8");
+					String ns1 = new String(ss.getBytes("iso-8859-1"),"gb2312");
+					String ns2 = new String(ss.getBytes("utf-8"),"gb2312");
+					String ns3 = new String(ss.getBytes("utf-8"),"iso-8859-1");
+					logger.debug("after convert = {}, {} ,{} ,{}",ns,ns1,ns2,ns3);
+					al.add(ns1);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}else{
+				al.add("");
+			}
+			
 			al.add(us.getPrivilege());
 //			al.add(String.valueOf(us.getType()));
 			tbBodyList.add(al);
