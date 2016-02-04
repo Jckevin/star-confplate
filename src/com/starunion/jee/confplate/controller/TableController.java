@@ -1,5 +1,7 @@
 package com.starunion.jee.confplate.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +21,19 @@ public class TableController {
 	TableGetService tableGetServ;
 	
 	@RequestMapping(value = "/baseTableAction", method = { RequestMethod.GET })
-	public String baseForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node) {
+	public String baseForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node,
+			HttpServletRequest request) {
 		logger.debug("baseTableAction: was i needn't change anymore?");
 		model.addAttribute("node", node);
 		model.addAttribute("menu", menu);
 //		model.addAttribute("insList", tableGetServ.getTableList(node));
 		model.addAttribute("funcList",tableGetServ.getTableFuncList(node));
 		model.addAttribute("thList",tableGetServ.getTableThList(node));
-		model.addAttribute("tbList",tableGetServ.getTableBodyList(node));
+		String currLanguage = (String)request.getSession().getAttribute("langSet");
+		if(currLanguage == null){
+			currLanguage = "zh_CN";
+		}
+		model.addAttribute("tbList",tableGetServ.getTableBodyList(node,currLanguage));
 		return "basetable";
 	}
 

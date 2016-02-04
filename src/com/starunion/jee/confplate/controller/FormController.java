@@ -1,11 +1,16 @@
 package com.starunion.jee.confplate.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -78,8 +83,10 @@ public class FormController {
 			@RequestParam("funcLoc") String funcLoc) {
 		String result = null;
 		int res = 0;
+		
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> revMap = (HashMap<String, String>) map;
+		
 		if(funcLoc.equals("addExten")){
 			res = formSubmitServ.submitUserInfo("sip_users",revMap);
 		}

@@ -75,32 +75,6 @@ public class DaoUserSip extends DbUtilsTemplate {
 //		private Integer trunknum;
 		int type = Integer.parseInt(tType);
 		StringBuffer sql = new StringBuffer();
-		String cName = "";
-		try {
-			String cName1 = new String(name.getBytes("utf-8"),"iso-8859-1");
-			cName = new String(name.getBytes("gb2312"),"iso-8859-1");
-			logger.debug("after convert codec :{}:{}",cName,cName1);
-			//\xC2\x8B\xC3\xA8\xC2\xAF...after convert codec :???è??é??è??
-			//\xC2\x8B\xC3\xA8\xC2\xAF...
-//			mysql> show variables like '%char%';
-//			+--------------------------+----------------------------+
-//			| Variable_name            | Value                      |
-//			+--------------------------+----------------------------+
-//			| character_set_client     | utf8                       |
-//			| character_set_connection | utf8                       |
-//			| character_set_database   | latin1                     |
-//			| character_set_filesystem | binary                     |
-//			| character_set_results    | utf8                       |
-//			| character_set_server     | latin1                     |
-//			| character_set_system     | utf8                       |
-//			| character_sets_dir       | /usr/share/mysql/charsets/ |
-//			+--------------------------+----------------------------+
-//			8 rows in set (0.01 sec)
-
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		sql.append("insert into sip_users (number,password,name,department,privilege,type,record,alltrans) ");
 		sql.append("values(\"");
 		sql.append(num).append("\",\"");

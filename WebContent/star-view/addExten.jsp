@@ -235,8 +235,10 @@
 												key="terType" bundle="${langRes}" /></label>
 										<div class="col-xs-7">
 											<select name="terType" class="form-control">
-												<option value="0">调度终端</option>
-												<option value="1">广播终端</option>
+												<option value="0"><fmt:message
+												key="terType1" bundle="${langRes}" /></option>
+												<option value="1"><fmt:message
+												key="terType2" bundle="${langRes}" /></option>
 											</select>
 										</div>
 									</div>
