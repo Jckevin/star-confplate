@@ -19,6 +19,8 @@ public class FormSubmitService {
 	DaoGeneralConf daoGenConf;
 	@Autowired
 	DaoUserSip daoUserSip;
+	public final static short USER_EXISTED = -1001;
+	
 	/**
 	 * @author Lings
 	 * @date 2016.01.19
@@ -39,9 +41,6 @@ public class FormSubmitService {
 	public int submitUserInfo(String sqlName,HashMap<String,String> revMap){
 
 		logger.debug("sigle for submit user Info .");
-		for (Entry<String, String> entry : revMap.entrySet()) {
-			logger.debug("receive map key = {}, value = {}", entry.getKey(), entry.getValue());
-		}
 		String number = revMap.get("terNum");
 		String passMode = revMap.get("passRd");
 		String password = "";
@@ -58,10 +57,32 @@ public class FormSubmitService {
 		int result = 0;
 		UserSip us = daoUserSip.findByNumber(number);
 		if(us != null){
-			return result;
+			return USER_EXISTED;
 		}else{
 			result = daoUserSip.insertSipUser(number,password,terName,terDep,terPri,terType,terRd);
 		}
 		return result;
 	}
+	/**batch insert PO service*/
+	public int submitUserList(String sqlName,HashMap<String,String> revMap){
+
+		logger.debug(" for submit user list .");
+		String number = revMap.get("terNum");
+		String passMode = revMap.get("passRd");
+		String password = "";
+		if(passMode.equals("1")){
+			password = revMap.get("terPass");
+		}else{
+			password = number;
+		}
+//		String terName = revMap.get("terName");
+		String terDep = revMap.get("terDepartment");
+		String count = revMap.get("terMount");
+		String terPri = revMap.get("terPri");
+		String terType = revMap.get("terType");
+		String terRd = revMap.get("recRd");
+		int result = daoUserSip.batchInsertSipUser(number, passMode, password, count, terDep, terPri, terType, terRd);
+		return result;
+	}
+	
 }

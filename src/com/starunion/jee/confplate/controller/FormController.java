@@ -71,7 +71,10 @@ public class FormController {
 		model.addAttribute("node", node);
 		model.addAttribute("menu", menu);
 		model.addAttribute("snode", snode);
-		model.addAttribute("insList", formGetServ.getSubGenVoList(snode));
+//		model.addAttribute("insList", formGetServ.getSubGenVoList(snode));
+		if(snode.equals("batchAddExten")){
+			return "addExten";
+		}
 		return snode;
 		// return "form_novalue";
 	}
@@ -86,17 +89,21 @@ public class FormController {
 		
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> revMap = (HashMap<String, String>) map;
-		
+		for (Entry<String, String> entry : revMap.entrySet()) {
+			logger.debug("receive map key = {}, value = {}", entry.getKey(), entry.getValue());
+		}
 		if(funcLoc.equals("addExten")){
 			res = formSubmitServ.submitUserInfo("sip_users",revMap);
+		}else{
+			res = formSubmitServ.submitUserList("sip_users",revMap);
 		}
 		logger.debug("service return {}",res);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> respMap = new HashMap<String, Object>();
 		if (res == 1) {
-			respMap.put("result", "success");
-		} else if(res == 0){
-			respMap.put("result", "inuse");
+			respMap.put("result", "0");
+		} else if(res == FormSubmitService.USER_EXISTED){
+			respMap.put("result", "1");
 		}
 
 		try {

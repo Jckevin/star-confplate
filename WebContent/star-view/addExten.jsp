@@ -170,7 +170,7 @@
 			<section class="content">
 				<div class="row">
 					<div class="box box-primary">
-					<div class="box-header" style="display:none"><fmt:message key="yes" bundle="${langRes}" /></div>
+					<div class="box-header" style="display:none"><fmt:message key="userExisted" bundle="${langRes}" /></div>
 						<div class="col-md-7 col-sm-10 col-xs-12">
 							<form id="actfrm" class="form-horizontal"
 								action="baseActionUpdate">
@@ -204,11 +204,19 @@
 												value="" disabled />
 										</div>
 									</div>
-									<div class="form-group">
+									<div id="terNameDiv" class="form-group">
 										<label class="col-xs-5 control-label"> <fmt:message
 												key="terName" bundle="${langRes}" /></label>
 										<div class="col-xs-7">
 											<input type="text" name="terName" class="form-control"
+												value="" />
+										</div>
+									</div>
+									<div id="terMountDiv" class="form-group">
+										<label class="col-xs-5 control-label"> <fmt:message
+												key="terMount" bundle="${langRes}" /></label>
+										<div class="col-xs-7">
+											<input type="text" name="terMount" class="form-control"
 												value="" />
 										</div>
 									</div>
@@ -236,9 +244,9 @@
 										<div class="col-xs-7">
 											<select name="terType" class="form-control">
 												<option value="0"><fmt:message
-												key="terType1" bundle="${langRes}" /></option>
+												key="terTypeDis" bundle="${langRes}" /></option>
 												<option value="1"><fmt:message
-												key="terType2" bundle="${langRes}" /></option>
+												key="terTypeBro" bundle="${langRes}" /></option>
 											</select>
 										</div>
 									</div>
@@ -290,6 +298,13 @@
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
 	<script type="text/javascript">
     $(document).ready(function() {
+      var funcLoc = $("#funcLoc").val();
+      if(funcLoc == "batchAddExten"){
+        $("#terNameDiv").css("display","none");
+      }else if(funcLoc == "addExten"){
+        $("#terMountDiv").css("display","none");
+      }
+      
       $(".btn").click(function(e) {
         e.preventDefault();
         var dataPara = getFormJson();
@@ -303,10 +318,10 @@
           data : JSON.stringify(dataPara),
           dataType : "json",
           success : function(result, status, req) {
-            if(result.result == "success"){
+            if(result.result == "0"){
               $(".box-header").css("display", "none");
               location.href="baseTableAction?menu=manageExten&node=sipExten";
-            }else{
+            }else if(result.result == "1"){
               $(".box-header").css("display", "block");
             };
           },

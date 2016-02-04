@@ -90,5 +90,44 @@ public class DaoUserSip extends DbUtilsTemplate {
 		return res;
 		
 	}
+	
+	public int batchInsertSipUser(String num,String pwdMode,String pwd,String count,String tDep,String tPri,String tType,String tRd){
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("insert into sip_users");
+		sql.append("(number,password,department,privilege,type,record,alltrans)");
+		sql.append("values(?,?,?,?,?,?,\"0\")");
+		int len = num.length();
+		int bnum = 0;
+		/** here 8 is not strict enough */
+		int STR_COVT_LEN_MAX = 8;
+		if(len < STR_COVT_LEN_MAX){
+			bnum = Integer.parseInt(num);
+		}else{
+			//:TODO split the two long String,change the last 3 or 4 bits.
+		}
+		int times = Integer.parseInt(count);
+		System.out.println("times = "+times);
+		Object[][] infoArry = new Object[times][6];
+		for(int i=0;i<times;i++){
+			infoArry[i][0] = String.valueOf(bnum);
+			
+			if(pwdMode.equals("0")){
+				infoArry[i][1] = String.valueOf(bnum);	
+			}else{
+				infoArry[i][1] = pwd;
+			}
+			infoArry[i][2] = tDep;
+			infoArry[i][3] = tPri;
+			infoArry[i][4] = tType;
+			infoArry[i][5] = tRd;			
+			bnum++;
+		}
+		logger.debug("batch insert : {}",sql.toString());
+		int[] res = super.batchUpdate(sql.toString(),infoArry);
+		
+		return 0;
+		
+	}
 
 }

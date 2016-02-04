@@ -173,7 +173,7 @@
 								<div class="btn-group" data-toggle="buttons">
 								    <c:forEach items="${funcList}" var="func">
 										<a href="${func.action }" class="btn btn-primary btn4url">
-										<span class="${func.pic }"><fmt:message key="${func.name }" bundle="${langRes}" /></span>
+										<span class="${func.pic }">&nbsp;<fmt:message key="${func.name }" bundle="${langRes}" /></span>
 										</a>
 									</c:forEach>
 								</div>
