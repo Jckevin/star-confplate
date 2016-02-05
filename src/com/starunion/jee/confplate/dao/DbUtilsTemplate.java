@@ -220,7 +220,6 @@ public class DbUtilsTemplate {
      */ 
     @SuppressWarnings("unchecked") 
     public <T> T findFirst(Class<T> entityClass, String sql, Object[] params) {
-    	logger.debug("start waste time....");
         queryRunner = new QueryRunner(dataSource); 
         Object object = null; 
         try { 
@@ -229,7 +228,6 @@ public class DbUtilsTemplate {
             } else { 
                 object = queryRunner.query(sql, new BeanHandler(entityClass), params); 
             }
-            logger.debug("what's the matter???");
         } catch (SQLException e) { 
             logger.error("Error occured while attempting to query data", e); 
         } 

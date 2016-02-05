@@ -15,7 +15,6 @@ public class DaoHtml18Mapping extends DbUtilsTemplate{
 		strBuff.append("\" and lang = \"");
 		strBuff.append(lang);
 		strBuff.append("\"");
-		System.out.println("!!!!!!!!"+strBuff.toString());
 		item  = super.findFirst(Html18Mapping.class, strBuff.toString());
 		return item.getValue();
 	}

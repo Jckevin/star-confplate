@@ -13,6 +13,7 @@ import com.starunion.jee.confplate.dao.DaoHtmlFuncButton;
 import com.starunion.jee.confplate.dao.DaoUserSip;
 import com.starunion.jee.confplate.po.HtmlFuncButton;
 import com.starunion.jee.confplate.po.UserSip;
+import com.starunion.jee.confplate.service.utils.ActI18nStrProc;
 
 @Service
 public class TableGetService {
@@ -23,7 +24,7 @@ public class TableGetService {
 	@Autowired
 	DaoHtmlFuncButton daoHtmlFuncBtn;
 	@Autowired
-	DaoHtml18Mapping daoHtml18Mapping;
+	ActI18nStrProc i18nStrProc;
 	
 	/**
 	 * @deprecated 
@@ -71,11 +72,11 @@ public class TableGetService {
 			al.add(us.getName());
 			al.add(us.getPrivilege());
 			if(us.getType() == 0){
-				al.add(daoHtml18Mapping.findValByLang("sipTerTypeDis", lang));
+				al.add(i18nStrProc.getI18nStr("sipTerTypeDis", lang));
 			}else if(us.getType() == 1){
-				al.add(daoHtml18Mapping.findValByLang("sipTerTypeBro", lang));
+				al.add(i18nStrProc.getI18nStr("sipTerTypePro", lang));
 			}else{
-				al.add(String.valueOf(us.getType()));	
+				al.add(String.valueOf(us.getType()));
 			}
 			tbBodyList.add(al);
 		}

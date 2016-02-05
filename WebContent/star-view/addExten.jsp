@@ -170,7 +170,12 @@
 			<section class="content">
 				<div class="row">
 					<div class="box box-primary">
-					<div class="box-header" style="display:none"><fmt:message key="userExisted" bundle="${langRes}" /></div>
+						<div class="box-header" style="display:none">
+							<div class="col-md-7 col-sm-10 col-xs-12">
+								<div class="col-xs-5"></div>
+								<div id="showResp" class="col-xs-7"></div>
+							</div>
+						</div>
 						<div class="col-md-7 col-sm-10 col-xs-12">
 							<form id="actfrm" class="form-horizontal"
 								action="baseActionUpdate">
@@ -321,8 +326,9 @@
             if(result.result == "0"){
               $(".box-header").css("display", "none");
               location.href="baseTableAction?menu=manageExten&node=sipExten";
-            }else if(result.result == "1"){
-              $(".box-header").css("display", "block");
+            }else{
+              $(".box-header").css("display", "block").css("color","#f00");
+              $("#showResp").html(result.value);
             };
           },
           error : function(req, status, reason) {

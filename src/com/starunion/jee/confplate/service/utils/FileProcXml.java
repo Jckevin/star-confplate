@@ -1,4 +1,4 @@
-package com.starunion.jee.confplate.service;
+package com.starunion.jee.confplate.service.utils;
 
 import java.io.IOException;
 

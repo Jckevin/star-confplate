@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.starunion.jee.confplate.service.FormGetService;
 import com.starunion.jee.confplate.service.FormSubmitService;
 import com.starunion.jee.confplate.service.LanResBundleService;
+import com.starunion.jee.confplate.service.utils.HttpSessionProc;
 
 @Controller
 public class FormController {
@@ -33,6 +34,8 @@ public class FormController {
 	FormGetService formGetServ;
 	@Autowired
 	FormSubmitService formSubmitServ;
+	@Autowired
+	HttpSessionProc httpSessionProc;
 
 	@RequestMapping(value = "/baseFormAction", method = { RequestMethod.GET })
 	public String baseForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node) {
@@ -83,34 +86,23 @@ public class FormController {
 	@ResponseBody
 	public String subFormSubmit(@SuppressWarnings("rawtypes") @RequestBody Map map,
 			@RequestParam("menuLoc") String menuLoc, @RequestParam("nodeLoc") String nodeLoc,
-			@RequestParam("funcLoc") String funcLoc) {
-		String result = null;
-		int res = 0;
+			@RequestParam("funcLoc") String funcLoc, HttpServletRequest req) {
+		String result = "";
+		/** get the language set */
+		String lang = httpSessionProc.getSessionAttr(req,"langSet");
 		
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> revMap = (HashMap<String, String>) map;
 		for (Entry<String, String> entry : revMap.entrySet()) {
 			logger.debug("receive map key = {}, value = {}", entry.getKey(), entry.getValue());
 		}
+		
 		if(funcLoc.equals("addExten")){
-			res = formSubmitServ.submitUserInfo("sip_users",revMap);
+			result = formSubmitServ.submitUserInfo("sip_users",revMap,lang);
 		}else{
-			res = formSubmitServ.submitUserList("sip_users",revMap);
-		}
-		logger.debug("service return {}",res);
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> respMap = new HashMap<String, Object>();
-		if (res == 1) {
-			respMap.put("result", "0");
-		} else if(res == FormSubmitService.USER_EXISTED){
-			respMap.put("result", "1");
+			result = formSubmitServ.submitUserList("sip_users",revMap,lang);
 		}
 
-		try {
-			result = mapper.writeValueAsString(respMap);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
 		logger.debug("push ajax response:{}", result);
 		return result;
 	}
