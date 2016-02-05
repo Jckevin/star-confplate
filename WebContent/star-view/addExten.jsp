@@ -160,17 +160,16 @@
 			<!-- The area used for extra data post -->
 			<div>
 				<input type="text" id="menuLoc" value="${menu}"
-					style="display: none;" />
-				<input type="text" id="nodeLoc" value="${node}"
-					style="display: none;" />
-				<input type="text" id="funcLoc" value="${snode}"
-					style="display: none;" />
+					style="display: none;" /> <input type="text" id="nodeLoc"
+					value="${node}" style="display: none;" /> <input type="text"
+					id="funcLoc" value="${snode}" style="display: none;" /> <input
+					type="text" id="htmLang" value="${lang }" style="display: none" />
 			</div>
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
 					<div class="box box-primary">
-						<div class="box-header" style="display:none">
+						<div class="box-header" style="display: none">
 							<div class="col-md-7 col-sm-10 col-xs-12">
 								<div class="col-xs-5"></div>
 								<div id="showResp" class="col-xs-7"></div>
@@ -181,11 +180,11 @@
 								action="baseActionUpdate">
 								<div class="box-body">
 									<!-- here produce element static -->
-									<div class="form-group">
+									<div class="form-group" id="terNumDiv">
 										<label class="col-xs-5 control-label"> <fmt:message
 												key="terNum" bundle="${langRes}" /></label>
 										<div class="col-xs-7">
-											<input type="text" name="terNum" class="form-control"
+											<input type="text" id="terNum" name="terNum" class="form-control"
 												value="" />
 										</div>
 									</div>
@@ -248,10 +247,10 @@
 												key="terType" bundle="${langRes}" /></label>
 										<div class="col-xs-7">
 											<select name="terType" class="form-control">
-												<option value="0"><fmt:message
-												key="terTypeDis" bundle="${langRes}" /></option>
-												<option value="1"><fmt:message
-												key="terTypeBro" bundle="${langRes}" /></option>
+												<option value="0"><fmt:message key="terTypeDis"
+														bundle="${langRes}" /></option>
+												<option value="1"><fmt:message key="terTypeBro"
+														bundle="${langRes}" /></option>
 											</select>
 										</div>
 									</div>
@@ -259,8 +258,9 @@
 										<label class="col-xs-5 control-label"> <fmt:message
 												key="terRecord" bundle="${langRes}" /></label>
 										<div class="col-xs-7">
-											<label style="margin-right:10px;"> <input type="radio" name="recRd" value="0">
-												<fmt:message key="yes" bundle="${langRes}" />
+											<label style="margin-right: 10px;"> <input
+												type="radio" name="recRd" value="0"> <fmt:message
+													key="yes" bundle="${langRes}" />
 											</label> <label> <input type="radio" name="recRd" value="1"
 												checked> <fmt:message key="no" bundle="${langRes}" />
 											</label>
@@ -301,35 +301,43 @@
 	<script type="text/javascript"
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
+
 	<script type="text/javascript">
     $(document).ready(function() {
-      var funcLoc = $("#funcLoc").val();
-      if(funcLoc == "batchAddExten"){
-        $("#terNameDiv").css("display","none");
-      }else if(funcLoc == "addExten"){
-        $("#terMountDiv").css("display","none");
-      }
       
+      var funcLoc = $("#funcLoc").val();
+      if (funcLoc == "batchAddExten") {
+        $("#terNameDiv").css("display", "none");
+      } else if (funcLoc == "addExten") {
+        $("#terMountDiv").css("display", "none");
+      }
+
+      var lan = $("#htmLang").val();
+
       $(".btn").click(function(e) {
         e.preventDefault();
+
+        validateInput($("#terNum"));
+        return;
         var dataPara = getFormJson();
         var menuLoc = $("#menuLoc").val();
         var nodeLoc = $("#nodeLoc").val();
         var funcLoc = $("#funcLoc").val();
         $.ajax({
-          url : "subFormSubmit?menuLoc="+menuLoc+"&nodeLoc="+nodeLoc+"&funcLoc="+funcLoc,
+          url : "subFormSubmit?menuLoc=" + menuLoc + "&nodeLoc=" + nodeLoc + "&funcLoc=" + funcLoc,
           type : "POST",
           contentType : "application/json;charset=utf-8",
           data : JSON.stringify(dataPara),
           dataType : "json",
           success : function(result, status, req) {
-            if(result.result == "0"){
+            if (result.result == "0") {
               $(".box-header").css("display", "none");
-              location.href="baseTableAction?menu=manageExten&node=sipExten";
-            }else{
-              $(".box-header").css("display", "block").css("color","#f00");
+              location.href = "baseTableAction?menu=manageExten&node=sipExten";
+            } else {
+              $(".box-header").css("display", "block").css("color", "#f00");
               $("#showResp").html(result.value);
-            };
+            }
+            ;
           },
           error : function(req, status, reason) {
             alert("ajax error !");
@@ -354,6 +362,17 @@
         });
 
         return o;
+      }
+      
+      function validateInput(obj){
+        alert("!!!!!");
+        var test = obj.val();
+        alert(test);
+        if(test !== '123'){
+          obj.parent().parent().addClass("has-error");
+          $(".box-header").css("display", "block").css("color", "#f00");
+          $("#showResp").html("error accurrd");
+        }
       }
 
       $('input[name="passRd"]').click(function() {
