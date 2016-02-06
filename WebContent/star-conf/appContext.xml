@@ -15,8 +15,8 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://192.168.8.12:3306/freepbx" />
-		<property name="username" value="remo" />
+		<property name="url" value="jdbc:mysql://localhost:3306/starpbx" />
+		<property name="username" value="root" />
 		<property name="password" value="123456" />
 		<property name="initialSize" value="1"/>
 		<property name="maxTotal" value="10"/>

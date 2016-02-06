@@ -301,6 +301,7 @@
 	<script type="text/javascript"
 		src="<c:url value='/star-js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/star-js/app.min.js'/>"></script>
+	<script src="<c:url value='/star-js/jquery.sunValidate.js'/>"></script>
 
 	<script type="text/javascript">
     $(document).ready(function() {
@@ -317,7 +318,7 @@
       $(".btn").click(function(e) {
         e.preventDefault();
 
-        validateInput($("#terNum"));
+        //validateInput($("#terNum"));
         return;
         var dataPara = getFormJson();
         var menuLoc = $("#menuLoc").val();
@@ -386,5 +387,41 @@
 
     });
   </script>
+  <script type="text/javascript">
+   $(function(){
+     
+	  function textHandle( $super  , msg){					
+		 $super.addClass("has-error");
+		 $(".box-header").css("display", "block").css("color", "#f00");
+         $("#showResp").html(msg);
+		 
+	  }
+
+	  /* 通用校验函数  */
+	  function validate($obj,min,max){
+	  	 var $super = $obj.parent().parent();
+		 var res = $obj.basicTypeReg('int',[min,max]);
+		 //:String regex.
+		 if(res == 'outRange'){
+			 var outRange = "out of range" +min +" and "+max;
+			 textHandle( $super  , outRange );
+			 return false;
+		 }
+		 if(res == 'regFail'){
+		 	 textHandle( $super , "illegalNumber" ); 
+		 	 return false;
+		 }
+		 textHandle( $super , "&nbsp;&nbsp;√");
+		 return true;
+	  }
+	 
+	  /* Validate */
+	  $('#terNum').bind('blur',function(){
+		  validate($(this),5,15);
+	  });
+	 
+   });
+
+</script>
 </body>
 </html>
