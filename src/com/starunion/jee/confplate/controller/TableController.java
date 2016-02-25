@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.starunion.jee.confplate.service.TableGetService;
+import com.starunion.jee.confplate.service.utils.HttpSessionProc;
 
 @Controller
 public class TableController {
@@ -19,6 +20,8 @@ public class TableController {
 
 	@Autowired
 	TableGetService tableGetServ;
+	@Autowired
+	HttpSessionProc httpSessionProc;
 	
 	@RequestMapping(value = "/baseTableAction", method = { RequestMethod.GET })
 	public String baseForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node,
@@ -26,14 +29,10 @@ public class TableController {
 		logger.debug("baseTableAction: was i needn't change anymore?");
 		model.addAttribute("node", node);
 		model.addAttribute("menu", menu);
-//		model.addAttribute("insList", tableGetServ.getTableList(node));
 		model.addAttribute("funcList",tableGetServ.getTableFuncList(node));
 		model.addAttribute("thList",tableGetServ.getTableThList(node));
-		String currLanguage = (String)request.getSession().getAttribute("langSet");
-		if(currLanguage == null){
-			currLanguage = "zh_CN";
-		}
-		model.addAttribute("tbList",tableGetServ.getTableBodyList(node,currLanguage));
+		String lang = httpSessionProc.getSessionAttr(request,"langSet");
+		model.addAttribute("tbList",tableGetServ.getTableBodyList(node,lang));
 		return "basetable";
 	}
 

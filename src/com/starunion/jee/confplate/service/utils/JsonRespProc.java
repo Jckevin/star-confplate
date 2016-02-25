@@ -27,4 +27,19 @@ public class JsonRespProc {
 		return jsonRes;
 	}
 	
+	public String makeJsonResp(int statusCode,String statusVal){
+		String jsonRes = "";
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> respMap = new HashMap<String, Object>();
+		respMap.put("result", statusCode);
+		respMap.put("value", statusVal);
+
+		try {
+			jsonRes = mapper.writeValueAsString(respMap);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return jsonRes;
+	}
+	
 }

@@ -17,6 +17,7 @@ import com.starunion.jee.confplate.po.HtmlMenu;
 import com.starunion.jee.confplate.po.MenuTreeNode;
 import com.starunion.jee.confplate.service.HomeService;
 import com.starunion.jee.confplate.service.LoginService;
+import com.starunion.jee.confplate.service.utils.ConstantGen;
 
 @Controller
 public class HomeController {
@@ -33,13 +34,13 @@ public class HomeController {
 		logger.debug("before get home parameters, recheck user info");
 		int res = loginServ.judgeLoginUser(loginname, loginpasswd);
 		
-		if(res == 0){
+		if(res == ConstantGen.SUCCESS){
 			httpSession.setAttribute("user", loginname);
 			List<MenuTreeNode> treeNodeList = new ArrayList<MenuTreeNode>();
 			treeNodeList = homeServ.getMenuTreeList();
 //			printTreeInfo(treeNodeList);
 			httpSession.setAttribute("menutree", treeNodeList);
-		}		
+		}
 		return "home";
 	}
 

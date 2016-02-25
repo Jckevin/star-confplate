@@ -83,13 +83,10 @@ public class LoginController {
 //			logger.debug("language was special configured,use config params.");	
 //		}
 		
-		String checkRes = null;
+		String checkRes = "";
 		logger.debug("login check.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
-		try {
-			checkRes = loginServ.judgeLoginUserJson((String)map.get("loginname"), (String)map.get("loginpasswd"));
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
+		checkRes = loginServ.judgeLoginUserJson((String)map.get("loginname"), (String)map.get("loginpasswd"));
+		
 		return checkRes;
 	}
 	

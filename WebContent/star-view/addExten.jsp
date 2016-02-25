@@ -319,7 +319,7 @@
         e.preventDefault();
 
         //validateInput($("#terNum"));
-        return;
+       // return;
         var dataPara = getFormJson();
         var menuLoc = $("#menuLoc").val();
         var nodeLoc = $("#nodeLoc").val();
@@ -411,13 +411,13 @@
 		 	 textHandle( $super , "illegalNumber" ); 
 		 	 return false;
 		 }
-		 textHandle( $super , "&nbsp;&nbsp;√");
+		 //textHandle( $super , "&nbsp;&nbsp;√");
 		 return true;
 	  }
 	 
 	  /* Validate */
 	  $('#terNum').bind('blur',function(){
-		  validate($(this),5,15);
+		  validate($(this),2,15);
 	  });
 	 
    });

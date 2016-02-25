@@ -1,6 +1,5 @@
 package com.starunion.jee.confplate.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.starunion.jee.confplate.service.FormGetService;
 import com.starunion.jee.confplate.service.FormSubmitService;
 import com.starunion.jee.confplate.service.LanResBundleService;
+import com.starunion.jee.confplate.service.utils.ConstantGen;
 import com.starunion.jee.confplate.service.utils.HttpSessionProc;
+import com.starunion.jee.confplate.service.utils.JsonRespProc;
 
 @Controller
 public class FormController {
@@ -36,6 +36,8 @@ public class FormController {
 	FormSubmitService formSubmitServ;
 	@Autowired
 	HttpSessionProc httpSessionProc;
+	@Autowired
+	JsonRespProc jsonRespProc;
 
 	@RequestMapping(value = "/baseFormAction", method = { RequestMethod.GET })
 	public String baseForm(Model model, @RequestParam("menu") String menu, @RequestParam("node") String node) {
@@ -53,16 +55,9 @@ public class FormController {
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> revMap = (HashMap<String, String>) map;
 		int res = formSubmitServ.submitGenVoList(nodeLoc, revMap);
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> respMap = new HashMap<String, Object>();
-		if (res == 0) {
-			respMap.put("result", "success");
-		}
-
-		try {
-			result = mapper.writeValueAsString(respMap);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+		
+		if (res == ConstantGen.SUCCESS) {
+			result = jsonRespProc.makeJsonResp(ConstantGen.SUCCESS, "");
 		}
 		logger.debug("push ajax response:{}", result);
 		return result;

@@ -14,6 +14,7 @@ import com.starunion.jee.confplate.dao.DaoUserSip;
 import com.starunion.jee.confplate.po.HtmlFuncButton;
 import com.starunion.jee.confplate.po.UserSip;
 import com.starunion.jee.confplate.service.utils.ActI18nStrProc;
+import com.starunion.jee.confplate.service.utils.ConstantGen;
 
 @Service
 public class TableGetService {
@@ -71,10 +72,10 @@ public class TableGetService {
 			al.add(us.getPassword());
 			al.add(us.getName());
 			al.add(us.getPrivilege());
-			if(us.getType() == 0){
+			if(us.getType() == ConstantGen.TERTYPE_DIS){
 				al.add(i18nStrProc.getI18nStr("sipTerTypeDis", lang));
-			}else if(us.getType() == 1){
-				al.add(i18nStrProc.getI18nStr("sipTerTypePro", lang));
+			}else if(us.getType() == ConstantGen.TERTYPE_BRO){
+				al.add(i18nStrProc.getI18nStr("sipTerTypeBro", lang));
 			}else{
 				al.add(String.valueOf(us.getType()));
 			}
