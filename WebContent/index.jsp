@@ -91,7 +91,7 @@
           }),
           dataType : "json",
           success : function(result, status, req) {
-            if (result.statusCode == "0") {
+            if (result.result == "0") {
               obj.parents('form').submit();
             } else {
               //$(".noticeInfo").css("display", "block").text(result.reasonCode);

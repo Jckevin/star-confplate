@@ -86,7 +86,6 @@ public class LoginController {
 		String checkRes = "";
 		logger.debug("login check.....{} : {}....",map.get("loginname"),map.get("loginpasswd"));
 		checkRes = loginServ.judgeLoginUserJson((String)map.get("loginname"), (String)map.get("loginpasswd"));
-		
 		return checkRes;
 	}
 	
